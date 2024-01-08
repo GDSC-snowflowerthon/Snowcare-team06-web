@@ -1,0 +1,52 @@
+input[type="text"],
+input[type="datetime-local"],
+input[type="file"] {
+  width: 330px; 
+  padding: 12px 16px ;
+  background: rgba(73, 190, 183, 0.16);
+  border: 1px solid #49BEB7; 
+  border-radius: 8px; 
+  box-sizing: border-box; 
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 330px;
+  padding: 12px 16px ; 
+  background: rgba(73, 190, 183, 0.16);
+  border: 1px solid #49BEB7; 
+  border-radius: 8px; 
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  
+}
+.li-style{
+  list-style-type: none;
+}
+ul{
+  position: relative;
+}
+input[type="submit"]{
+  position: absolute;
+  bottom:50px;
+  display: flex;
+  width: 353.654px;
+  padding: 17.304px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+  background: #49BEB7;
+}
+.li-style li{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px; 
+  
+}
+ul.li-style {
+  margin: 0; /* 외부 마진 제거 */
+  padding: 15px; /* 외부 패딩 제거 */
+}
+.li-style label {
+  margin-bottom: 5px; /* Adjust the spacing between the label and the input/textarea */
+}
