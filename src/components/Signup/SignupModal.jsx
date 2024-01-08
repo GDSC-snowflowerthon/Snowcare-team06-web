@@ -2,62 +2,103 @@ import styled from "styled-components";
 import uncheckIcon from "../../assets/icon/uncheck-circle.svg";
 import checkIcon from "../../assets/icon/check-circle.svg";
 import { useState } from "react";
+import DaumPostcode from "react-daum-postcode";
 
 const SignupModal = () => {
   const [isChecked1, setIsChecked1] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
   const [checkNickname, setCheckNickname] = useState(false);
+  const [openPostcode, setOpenPostcode] = useState(false);
+  const [address, setAddress] = useState("");
 
   const onCheckNickname = () => {
     // 닉네임 중복 확인 api 불러오기
     setCheckNickname(true);
   };
 
+  const handle = {
+    // 버튼 클릭 이벤트
+    clickButton: () => {
+      setOpenPostcode((current) => !current);
+    },
+
+    // 주소 선택 이벤트
+    selectAddress: (data) => {
+      console.log(`
+            주소: ${data.address},
+            우편번호: ${data.zonecode}
+        `);
+      setAddress(data.address);
+      setOpenPostcode(false);
+    },
+  };
+
   return (
-    <ModalContainer>
-      <ModalContent>
-        <Title>
-          반가워요! <br /> 닉네임을 설정해주세요.
-        </Title>
-        <InputBox>
-          <InputTitle>
-            닉네임<span style={{ color: "red" }}>*</span>
-          </InputTitle>
-          <Input placeholder="닉네임을 입력해주세요" />
-          <InputButton onClick={onCheckNickname}>중복 확인</InputButton>
-          <InputExplain>3~8자 이상으로 공백 없이 입력해주세요</InputExplain>
-        </InputBox>
-        <AgreeBox>
-          <img
-            src={isChecked1 ? checkIcon : uncheckIcon}
-            alt={"미동의"}
-            onClick={() => setIsChecked1(!isChecked1)}
-            style={{ height: "25px" }}
-          />
-          <AgreeNotice>선택</AgreeNotice>
-          <div>오늘의 날씨 알림 동의</div>
-        </AgreeBox>
-        <AgreeBox>
-          <img
-            src={isChecked2 ? checkIcon : uncheckIcon}
-            alt={"미동의"}
-            onClick={() => setIsChecked2(!isChecked2)}
-            style={{ height: "25px" }}
-          />
-          <AgreeNotice>선택</AgreeNotice>
-          <div>내 지역 새로운 게시글 알림 동의</div>
-        </AgreeBox>
-        {isChecked2 && (
+    <>
+      <ModalContainer>
+        <ModalContent>
+          <Title>
+            반가워요! <br /> 닉네임을 설정해주세요.
+          </Title>
           <InputBox>
-            <InputTitle>내 장소 설정</InputTitle>
-            <Input placeholder="장소를 입력해주세요" />
-            <InputButton>위치 검색</InputButton>
-            <InputExplain>알림을 위해서 관심 장소를 입력해주세요</InputExplain>
+            <InputTitle>
+              닉네임<span style={{ color: "red" }}>*</span>
+            </InputTitle>
+            <Input placeholder="닉네임을 입력해주세요" />
+            <InputButton onClick={onCheckNickname}>중복 확인</InputButton>
+            <InputExplain>3~8자 이상으로 공백 없이 입력해주세요</InputExplain>
           </InputBox>
-        )}
-        <Button>시작하기</Button>
-      </ModalContent>
-    </ModalContainer>
+          <AgreeBox>
+            <img
+              src={isChecked1 ? checkIcon : uncheckIcon}
+              alt={"미동의"}
+              onClick={() => setIsChecked1(!isChecked1)}
+              style={{ height: "25px" }}
+            />
+            <AgreeNotice>선택</AgreeNotice>
+            <div>오늘의 날씨 알림 동의</div>
+          </AgreeBox>
+          <AgreeBox>
+            <img
+              src={isChecked2 ? checkIcon : uncheckIcon}
+              alt={"미동의"}
+              onClick={() => setIsChecked2(!isChecked2)}
+              style={{ height: "25px" }}
+            />
+            <AgreeNotice>선택</AgreeNotice>
+            <div>내 지역 새로운 게시글 알림 동의</div>
+          </AgreeBox>
+          {isChecked2 && (
+            <>
+              <InputBox>
+                <InputTitle>내 장소 설정</InputTitle>
+                <Input
+                  id="addr"
+                  readOnly
+                  placeholder="장소를 입력해주세요"
+                  value={address}
+                  onClick={handle.clickButton}
+                />
+                <InputButton onClick={handle.clickButton}>
+                  위치 검색
+                </InputButton>
+                <InputExplain>
+                  알림을 위해서 관심 장소를 입력해주세요
+                </InputExplain>
+              </InputBox>
+              {openPostcode && (
+                <DaumPostcode
+                  onComplete={handle.selectAddress} // 값을 선택할 경우 실행되는 이벤트
+                  autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
+                  //defaultQuery='판교역로 235' // 팝업을 열때 기본적으로 입력되는 검색어
+                />
+              )}
+            </>
+          )}
+          <Button>시작하기</Button>
+        </ModalContent>
+      </ModalContainer>
+    </>
   );
 };
 
@@ -73,12 +114,14 @@ const ModalContainer = styled.div`
   padding-top: 100px;
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
   background: rgba(0, 0, 0, 0.5);
 `;
 
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 100px;
   width: 90%;
   max-width: 400px;
   height: fit-content;
