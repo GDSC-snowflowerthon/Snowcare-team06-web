@@ -1,3 +1,4 @@
+import MyPage from "./pages/MyPage";
 import Router from "./router";
 import GlobalStye from "./styles/GlobalStyle";
 

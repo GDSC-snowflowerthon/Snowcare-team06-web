@@ -1,0 +1,55 @@
+#logoo{
+  width: 100px;
+  height: 52.25px;
+
+}
+#round{
+  border-radius: 40px;
+  height: 75px;
+  width: 75px ;
+}
+.profile{
+  padding: 15.025px 15.025px 0px 15.025px;
+  
+}
+.nav{
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  padding: 20px;
+  
+}
+.menu{
+  justify-content: flex-end;
+}
+.box{
+  text-align: left;
+  width: 346px;
+  height: 70px;
+  padding: 25px;
+  border-radius: 20px;
+  background: #EBF6F7;
+  font-size: 16px;
+
+  box-sizing: border-box;
+  margin: 15px auto;
+  display: flex;
+  align-items: center;
+}
+
+.logout-button{
+  width: 136px;
+  height: 40px;
+  margin: 44px 0;
+  border-radius: 20px;
+  background: #085F63;
+
+}
+.right-button{
+  margin-left:auto;
+}
+.button-image{
+  width: 20px;
+  height: 20px;
+  
+}
