@@ -2,17 +2,17 @@ import MainHeader from "../../components/Common/MainHeader";
 import styled from "styled-components";
 import kakaoLogo from "../../assets/images/kakao-logo.svg";
 import backgroundImg from "../../assets/images/startpage-background.svg";
+import SignupModal from "../../components/Signup/SignupModal";
 
-const StartPage = () => {
+const SignupPage = () => {
   return (
     <Container>
       <MainHeader />
       <InnerContainer>
         <ContentContainer>
           <Title>
-            눈 오는 날 <br />
-            함께해요! <br />
-            제목 다시 정하기..
+            눈 치우기 봉사 <br />
+            매칭 서비스
           </Title>
           <Explain>
             소개 넣기!!!!!!! <br />
@@ -25,6 +25,7 @@ const StartPage = () => {
         </ContentContainer>
         <Footer></Footer>
       </InnerContainer>
+      <SignupModal />
     </Container>
   );
 };
@@ -91,4 +92,4 @@ const Footer = styled.div`
   background-repeat: no-repeat; /*반복 방지*/
 `;
 
-export default StartPage;
+export default SignupPage;
