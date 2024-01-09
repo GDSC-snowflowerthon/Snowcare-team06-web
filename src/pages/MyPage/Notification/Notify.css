@@ -1,9 +1,12 @@
-
+body{
+  background-color: #fff;
+}
 
 #container{
   width: 380px;
 }
 h3{
+  color:black;
   margin: 30px 0;
   font-size: 20px;
 }
