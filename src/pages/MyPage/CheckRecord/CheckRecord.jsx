@@ -8,11 +8,11 @@ export default function CheckRecord(){
       <SearchBar id="search"/>
       <div className='box'>
         <p>글 제목<br/>내용</p>
-        <img id="img" src="./CheckRecord-img.png" alt='눈사진'></img>
+        <img className="img" src="./CheckRecord-img.png" alt='눈사진'></img>
       </div>
       <div className='box'>
         <p>글 제목<br/>내용</p>
-        <img id="img" src="./CheckRecord-img.png" alt='눈사진'></img>
+        <img className="img" src="./CheckRecord-img.png" alt='눈사진'></img>
       </div>
       <div className='box'>
         <p>글 제목<br/>내용</p>
