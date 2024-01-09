@@ -16,7 +16,7 @@ export default function LCommunity(){
         <p>구리구리</p>
       </div>
       <div>
-        <img id="simg" src="./public/LCom.png"></img>
+        <img id="simg" src="./LCom.png"></img>
       </div>
       <div className="box2">
         <p className="title">제목~~~</p>
@@ -39,7 +39,7 @@ export default function LCommunity(){
         <p>구리구리</p>
       </div>
       <div>
-        <img id="simg" src="./public/LCom.png"></img>
+        <img id="simg" src="./LCom.png"></img>
       </div>
       <div className="box2">
         <p className="title">제목~~~</p>
