@@ -1,3 +1,6 @@
+body{
+  background: #ffffff;
+}
 #logoo{
   width: 100px;
   height: 52.25px;
@@ -10,19 +13,15 @@
 }
 .profile{
   padding: 15.025px 15.025px 0px 15.025px;
+  margin: 1px 35%;
   
 }
-.nav{
-  background-color: #fff;
-  width: 100%;
-  display: flex;
-  padding: 20px;
-  
-}
+
 .menu{
   justify-content: flex-end;
 }
 .box{
+  box-sizing: border-box;
   text-align: left;
   width: 346px;
   height: 70px;
@@ -30,8 +29,6 @@
   border-radius: 20px;
   background: #EBF6F7;
   font-size: 16px;
-
-  box-sizing: border-box;
   margin: 15px auto;
   display: flex;
   align-items: center;
@@ -40,10 +37,11 @@
 .logout-button{
   width: 136px;
   height: 40px;
-  margin: 44px 0;
+  margin: 40px 32%;
   border-radius: 20px;
   background: #085F63;
-
+  text-align: center;
+  
 }
 .right-button{
   margin-left:auto;
@@ -51,5 +49,5 @@
 .button-image{
   width: 20px;
   height: 20px;
-  
+  font-size: small ;
 }
