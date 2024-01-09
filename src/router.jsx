@@ -1,10 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StartPage from "./pages/Start/StartPage";
 import MainPage from "./pages/Main/MainPage";
-import MyPage from "./pages/MyPage/MyPage/MyPage";
-import ChatList from "./pages/MyPage/ChatList/ChatList";
-import CheckRecord from "./pages/MyPage/CheckRecord/CheckRecord";
-
+import Like from "./pages/MyPage/LikeList/Like";
 
 
 const Router = () => {
@@ -12,7 +9,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
        
-        <Route path="/" element={< ChatList/>} />
+        <Route path="/" element={< Like/>} />
        
         <Route path="/" element={<StartPage />} />
         <Route path="/main" element={<MainPage />} />
