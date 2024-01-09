@@ -1,49 +1,64 @@
 body{
   background-color: #49BEB7;
-  
 }
-
+#container{
+  width: 360px;
+}
 .box{
   box-sizing: border-box;
   width: 330px;
-  height: 110px;
+  height: 100px;
   border-radius: 19px;
   background: #FFF;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   margin: 25px;
+  font-size: 16px;
+  margin-bottom: 5px;
+  line-height: 15px;
+  padding: 20px;
+
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  
 }
+
 .write-button{
-  
   box-sizing: border-box;
   float: right;
   margin: 40px;
-  margin-top: 90px;
-  width: 150px;
-  height: 60px;
-  padding: 16px;
+  margin-top: 70px;
+  width: 140px;
+  height: 50px;
   border-radius: 30px;
-  font-size: 20px;
+  font-size: 16px;
   color: #fff;
   background: #085F63;
   box-shadow: 0px 16px 48px 0px rgba(0, 0, 0, 0.22);
+  padding-bottom: 10px;
 }
-.box p {
-  font-size: 16px;
-  margin-bottom: 5px;
-  padding: 30px
+
+.write-icon {
+  width: 30px;
+  height: 30px;
 }
+
+
 .sButton{
   background-color: #085F63;
   border-radius: 20px;
   margin-left: 20px;
 }
+
 .img{
-  margin-left: auto;
-  margin-right: 20px;
   width: 70px;
   height: 70px;
-  
+}
+.title{
+  font-size: 16px;
+}
+.content{
+  color: #15A196;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.408px;
 }
