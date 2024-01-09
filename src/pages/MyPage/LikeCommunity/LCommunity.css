@@ -1,5 +1,5 @@
-body{
-  background-color: #fff;
+.body{
+  background: #ffffff;
 }
 #container{
   width: 360px;
@@ -55,4 +55,12 @@ p{
   border: none;
   width: 360px;
   display: flex;
+}
+h2{
+  font-size: 20px;
+}
+.content-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -1,6 +1,14 @@
-import "./LCommunity.css"
+import React, { useState } from 'react';
+import "./LCommunity.css";
+
 
 export default function LCommunity(){
+  const [like, setLike] = useState(0);
+
+  const handleLikeClick = () => {
+    setLike(like + 1);
+  };
+  
   return(
     <div id="container">
       <div className="user">
@@ -15,9 +23,14 @@ export default function LCommunity(){
         <div>
           <p className="content">12/30에 폭설이 내린대요~<br/>다같이 눈 치워봐요!</p>
         </div>
-        <div>
+        <div className='content-container'>
           <p className="content">2023.12.28</p>
+          <h2>
+            <span onClick={handleLikeClick}>❤️</span>
+            {like}
+          </h2>
         </div>
+        
         <hr className="line"/>
 
       </div>
@@ -33,9 +46,14 @@ export default function LCommunity(){
         <div>
           <p className="content">12/30에 폭설이 내린대요~<br/>다같이 눈 치워봐요!</p>
         </div>
-        <div>
+        <div className='content-container'>
           <p className="content">2023.12.28</p>
+          <h2>
+            <span onClick={handleLikeClick}>❤️</span>
+            {like}
+          </h2>
         </div>
+        
         <hr className="line"/>
         
       </div>

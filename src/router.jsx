@@ -4,6 +4,7 @@ import MainPage from "./pages/Main/MainPage";
 import SignupPage from "./pages/Signup/SignupPage";
 import LCommunity from "./pages/MyPage/LikeCommunity/LCommunity";
 
+
 const Router = () => {
   return (
     <BrowserRouter>
