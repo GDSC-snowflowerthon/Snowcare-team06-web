@@ -16,7 +16,7 @@ const Like = () => {
 
       <Post
         title="게시글 제목"
-        content="게시글 제목[지금 용인은] 우리동네 눈 치우기 자원봉사활동"
+        content="[지금 용인은] 우리동네 눈 치우기 자원봉사활동"
         imageSrc="./CheckRecord-img.png"
         like={like}
         onLikeClick={handleLikeClick}
@@ -24,7 +24,7 @@ const Like = () => {
 
         <Post
         title="게시글 제목"
-        content="게시글 제목[지금 용인은] 우리동네 눈 치우기 자원봉사활동"
+        content="[지금 용인은] 우리동네 눈 치우기 자원봉사활동"
         imageSrc="./CheckRecord-img.png"
         like={like}
         onLikeClick={handleLikeClick}
@@ -32,7 +32,7 @@ const Like = () => {
 
         <Post
         title="게시글 제목"
-        content="게시글 제목[지금 용인은] 우리동네 눈 치우기 자원봉사활동"
+        content="[지금 용인은] 우리동네 눈 치우기 자원봉사활동"
         imageSrc="./CheckRecord-img.png"
         like={like}
         onLikeClick={handleLikeClick}
@@ -40,7 +40,7 @@ const Like = () => {
 
         <Post
         title="게시글 제목"
-        content="게시글 제목[지금 용인은] 우리동네 눈 치우기 자원봉사활동"
+        content="[지금 용인은] 우리동네 눈 치우기 자원봉사활동"
         imageSrc="./CheckRecord-img.png"
         like={like}
         onLikeClick={handleLikeClick}
