@@ -1,0 +1,119 @@
+import { Card, Carousel } from "antd";
+import styled from "styled-components";
+import exampleImg from "../../assets/images/example-img.svg";
+import beforeImg from "../../assets/icon/before-button.svg";
+import nextImg from "../../assets/icon/next-button.svg";
+import { useRef } from "react";
+
+const { Meta } = Card;
+
+const dummyData = [0, 1, 2, 3];
+
+const InfoSlide = () => {
+  const sliderRef = useRef(null);
+  return (
+    <Container>
+      <BeforeButton onClick={() => sliderRef.current.prev()}>
+        <img src={beforeImg} alt="이전" width={30} />
+      </BeforeButton>
+      <Carousel autoplay ref={sliderRef}>
+        {dummyData.map((item) => (
+          <div key={item}>
+            <InnterContainer>
+              <ContentBox
+                hoverable
+                style={{ width: 240 }}
+                cover={<ProfileImg alt="example" src={exampleImg} />}
+              >
+                <Meta
+                  title="제목 넣어!"
+                  description={
+                    <Explain>
+                      봉사 장소 : ~~~ <br />
+                      봉사 기간 : ~~~ <br />
+                      모집 기간 : ~~~ <br />
+                    </Explain>
+                  }
+                />
+                <LinkButton>자세히 알아보기</LinkButton>
+              </ContentBox>
+            </InnterContainer>
+          </div>
+        ))}
+      </Carousel>
+      <NextButton onClick={() => sliderRef.current.next()}>
+        <img src={nextImg} alt="다음" width={30} />
+      </NextButton>
+    </Container>
+  );
+};
+
+const Container = styled.div`
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 400px;
+  .slick-dots {
+    display: none !important;
+  }
+`;
+
+const BeforeButton = styled.button`
+  position: absolute;
+  top: 120px;
+  left: -20px;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+const NextButton = styled.button`
+  position: absolute;
+  top: 120px;
+  right: -20px;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+const InnterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  width: 100%;
+  //height: 200px;
+`;
+
+const ContentBox = styled(Card)`
+  .ant-card-body {
+    padding: 20px 20px;
+  }
+`;
+
+const ProfileImg = styled.img`
+  width: 240px;
+  height: 120px;
+  object-fit: cover;
+`;
+
+const Explain = styled.div`
+  font-size: 0.8rem;
+`;
+
+const LinkButton = styled.button`
+  width: 100%;
+  margin-top: 10px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: #e2f4f3;
+  font-size: 0.8rem;
+  cursor: pointer;
+`;
+
+export default InfoSlide;

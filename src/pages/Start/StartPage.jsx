@@ -37,7 +37,6 @@ const Container = styled.div`
 const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-position: center;
   align-items: center;
   width: 100vw;
   height: 100%;
@@ -46,7 +45,6 @@ const InnerContainer = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-position: center;
   align-items: center;
   padding: 80px 20px;
   width: 100%;
