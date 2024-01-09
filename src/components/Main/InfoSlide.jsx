@@ -22,7 +22,7 @@ const InfoSlide = () => {
             <InnterContainer>
               <ContentBox
                 hoverable
-                style={{ width: 240 }}
+                // style={{ minWidth: "240px"; width: "100%"; }}
                 cover={<ProfileImg alt="example" src={exampleImg} />}
               >
                 <Meta
@@ -54,7 +54,7 @@ const Container = styled.div`
   margin-bottom: 20px;
   padding: 0 20px;
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   .slick-dots {
     display: none !important;
   }
@@ -90,6 +90,7 @@ const InnterContainer = styled.div`
 `;
 
 const ContentBox = styled(Card)`
+  width: 250px;
   .ant-card-body {
     padding: 20px 20px;
   }

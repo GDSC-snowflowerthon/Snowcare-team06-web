@@ -61,8 +61,9 @@ const MatchingContentBox = styled.div`
 `;
 
 const Title = styled.div`
+  padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 600;
 `;
 
