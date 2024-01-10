@@ -1,10 +1,10 @@
-body{
+.check-body{
   background-color: #49BEB7;
 }
-#container{
+#container2{
   width: 360px;
 }
-.box{
+.box2{
   box-sizing: border-box;
   width: 330px;
   height: 100px;
@@ -49,14 +49,14 @@ body{
   margin-left: 20px;
 }
 
-.img{
+.img2{
   width: 70px;
   height: 70px;
 }
-.title{
+.title2{
   font-size: 16px;
 }
-.content{
+.content2{
   color: #15A196;
   font-size: 12px;
   font-weight: 600;
