@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import menuButton from "../../assets/icon/menu-button.svg";
 import snowcareLogo from "../../assets/images/snowcare-logo.svg";
+import beforeButton from "../../assets/icon/before-button.svg";
 import { useState } from "react";
 import MenuDrawer from "./MenuDrawer";
 
-const MainHeader = () => {
+const DetailHeader = () => {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -19,6 +20,9 @@ const MainHeader = () => {
     <>
       <Container>
         <InnerContainer>
+          <BackButton>
+            <BackImg src={beforeButton} alt="뒤로가기" />
+          </BackButton>
           <LogoImg src={snowcareLogo} alt="로고" />
           <MenuButton onClick={showDrawer}>
             <MenuImg src={menuButton} alt="메뉴" />
@@ -45,8 +49,18 @@ const InnerContainer = styled.div`
   align-items: center;
   padding: 10px 20px;
   width: 100%;
-  max-width: 700px // 정하기!
-;
+  max-width: 700px; // 정하기!
+`;
+
+const BackButton = styled.button`
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
+const BackImg = styled.img`
+  height: 30px;
 `;
 
 const LogoImg = styled.img`
@@ -63,4 +77,4 @@ const MenuImg = styled.img`
   height: 20px;
 `;
 
-export default MainHeader;
+export default DetailHeader;

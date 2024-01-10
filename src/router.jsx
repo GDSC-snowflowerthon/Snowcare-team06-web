@@ -12,6 +12,9 @@ import CheckRecord from "./pages/MyPage/CheckRecord/CheckRecord";
 import LCommunity from "./pages/MyPage/LikeCommunity/LCommunity";
 import Community from "./pages/Community2/mainCommunity/Community";
 import CDetail from "./pages/Community2/CDetail/CDetail";
+import MatchingListPage from "./pages/MatchingList/MatchingListPage";
+import MatchingDetailPage from "./pages/MatchingDetail/MatchingDetailPage";
+import MatchingWritePage from "./pages/MatchingWrite/MatchingWritePage";
 
 const Router = () => {
   return (
@@ -21,6 +24,9 @@ const Router = () => {
         <Route path="/" element={<StartPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/main" element={<MainPage />} />
+        <Route path="/matchings" element={<MatchingListPage />} />
+        <Route path="/matching" element={<MatchingDetailPage />} />
+        <Route path="/matching-write" element={<MatchingWritePage />} />
 
         <Route path="/chatlist" element={<ChatList />} />
         <Route path="/checkrecord" element={<CheckRecord/>} />
