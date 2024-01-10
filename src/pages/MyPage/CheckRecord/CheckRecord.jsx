@@ -46,8 +46,9 @@ export default function CheckRecord(){
       </div>
 
       <div className='www'>
-        <button className="write-button">글 작성하기
-          <img className="write-icon" src='./src/assets/icon/write-button.svg' />
+        <button className="write-button2">
+          <p>글작성하기</p>
+          <img className="write-icon2" src='./src/assets/icon/write-button.svg' />
         </button>
         
       </div>

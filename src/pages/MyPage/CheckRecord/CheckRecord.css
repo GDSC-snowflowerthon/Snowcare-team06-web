@@ -21,26 +21,6 @@
   align-items: center;
 }
 
-.write-button{
-  box-sizing: border-box;
-  float: right;
-  margin: 40px;
-  margin-top: 70px;
-  width: 140px;
-  height: 50px;
-  border-radius: 30px;
-  font-size: 16px;
-  color: #fff;
-  background: #085F63;
-  box-shadow: 0px 16px 48px 0px rgba(0, 0, 0, 0.22);
-  padding-bottom: 10px;
-}
-
-.write-icon {
-  width: 30px;
-  height: 30px;
-}
-
 
 .sButton{
   background-color: #085F63;
@@ -60,4 +40,35 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: -0.408px;
+}
+
+.write-button2{
+  box-sizing: border-box;
+  float: right;
+  margin-top: 70px;
+  margin-bottom: 30px;
+  width: 173px;
+  height: 68px;
+  border-radius: 30px;
+  border: none;
+  font-size: 20px;
+  font-weight: 400;
+line-height: 24px;
+  color: #fff;
+  background: #085F63;
+  box-shadow: 0px 16px 48px 0px rgba(0, 0, 0, 0.22);
+  padding: 16px;
+  display: flex;
+justify-content: center;
+align-items: flex-start;
+}
+
+.write-icon2 {
+  width: 30px;
+  height: 30px;
+  margin-top: 2px;
+}
+.write-button2 p {
+ margin-top: 7px;
+ margin-right: 4px;
 }
