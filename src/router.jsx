@@ -17,7 +17,9 @@ import MatchingDetailPage from "./pages/MatchingDetail/MatchingDetailPage";
 import MatchingWritePage from "./pages/MatchingWrite/MatchingWritePage";
 
 import CDtail from "./pages/Community/CDetail/CDetail";
-import Community from "./pages/Community/Community/Community"
+import Community from "./pages/Community/Community/Community";
+import CWrite from "./pages/Community/CWrite/CWrite";
+
 
 const Router = () => {
   return (
@@ -42,6 +44,7 @@ const Router = () => {
 
         <Route path="/cdetail" element={<CDtail/>} />
         <Route path="/community" element={<Community/>} />
+        <Route path="/cwrite" element={<CWrite/>} />
         
       </Routes>
     </BrowserRouter>

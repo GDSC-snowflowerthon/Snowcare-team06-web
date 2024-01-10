@@ -1,0 +1,65 @@
+.li-style2 input[type="text"],
+input[type="datetime-local"],
+input[type="file"] {
+  width: 350px; 
+  height: 45px;
+  padding: 12px 16px ;
+  background: rgba(73, 190, 183, 0.16);
+  border: 1px solid #49BEB7; 
+  border-radius: 8px; 
+  box-sizing: border-box; 
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+
+.li-style2 textarea {
+  width: 350px;
+  padding: 12px 16px ; 
+  background: rgba(73, 190, 183, 0.16);
+  border: 1px solid #49BEB7; 
+  border-radius: 8px; 
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+.li-style2{
+  list-style-type: none;
+}
+.record-title2{
+  font-size: 26px;
+  color: black;
+  margin-bottom: 20px;
+}
+ul{
+  position: relative;
+}
+.write-finish input[type="submit"]{
+  position: absolute;
+  margin-top: 200px;
+  margin-left: 15px;
+  display: flex;
+  width: 353.654px;
+  height: 60px;
+  padding: 17.304px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+  background: #49BEB7;
+  border: none;
+  font-size: 19px;
+  
+}
+.li-style2 li{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px; 
+  
+}
+ul.li-style2 {
+  margin: 0; /* 외부 마진 제거 */
+  padding: 15px; /* 외부 패딩 제거 */
+}
+.li-style2 label {
+  margin-bottom: 5px; /* Adjust the spacing between the label and the input/textarea */
+}
