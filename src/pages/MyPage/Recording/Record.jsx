@@ -36,11 +36,13 @@ export default function Record() {
           
         </li>
       </ul>
-  
+
+      <div className="write-finish1">
         <input
           type="submit"
           value="완성하기"
         ></input>
+      </div>
       </div>
     </>
   );
