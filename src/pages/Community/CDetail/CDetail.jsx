@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./CDetail.css";
 
 
-export default function LCommunity(){
+export default function CDetail(){
   const [like, setLike] = useState(0);
 
   const handleLikeClick = () => {
