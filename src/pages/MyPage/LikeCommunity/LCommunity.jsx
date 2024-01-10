@@ -41,9 +41,6 @@ export default function LCommunity(){
         <img id="img" src="./src/assets/images/profile.png" alt="사용자"></img>
         <p>구리구리</p>
       </div>
-      <div>
-        <img id="simg" src="./LCom.png"></img>
-      </div>
       <div className="box3">
         <p className="title3">제목~~~</p>
         <div>
