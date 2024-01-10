@@ -2,7 +2,7 @@ body{
   background-color: #49BEB7;
   
 }
-h3{
+.title-chat{
   color: #ffffff;
   font-size: 26.245px;
   font-weight: 800;
@@ -10,10 +10,10 @@ h3{
 }
 
 
-#container{
+#container1{
   width: 360px;
 }
-.box{
+.box1{
   box-sizing: border-box;
   width: 330px;
   height: 100px;
@@ -58,14 +58,14 @@ h3{
   margin-left: 20px;
 }
 
-.img{
+.img1{
   width: 70px;
   height: 70px;
 }
-.title{
+.title1{
   font-size: 16px;
 }
-.content{
+.content1{
   color: #15A196;
   font-size: 12px;
   font-weight: 600;
