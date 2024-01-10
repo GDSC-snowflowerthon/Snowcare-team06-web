@@ -1,3 +1,4 @@
+//좋아요한 커뮤니티 게시글
 import React, { useState } from 'react';
 import "./LCommunity.css";
 
@@ -12,7 +13,7 @@ export default function LCommunity(){
   return(
     <div id="container3">
       <div className="user">
-        <img id="img" src="./src/assets/icon/프로필.png" alt="사용자"></img>
+        <img id="img" src="./src/assets/images/profile.png" alt="사용자"></img>
         <p>구리구리</p>
       </div>
       <div>
@@ -25,17 +26,19 @@ export default function LCommunity(){
         </div>
         <div className='content-container'>
           <p className="content3">2023.12.28</p>
-          <h2>
-            <span onClick={handleLikeClick}>❤️</span>
+          <p className='like-num'>
+            <span onClick={handleLikeClick}>
+              <img className='like-button' src='./src/assets/icon/red-like.png'/>
+            </span>
             {like}
-          </h2>
+          </p>
         </div>
         
         <hr className="line"/>
 
       </div>
       <div className="user">
-        <img id="img" src="./src/assets/icon/프로필.png" alt="사용자"></img>
+        <img id="img" src="./src/assets/images/profile.png" alt="사용자"></img>
         <p>구리구리</p>
       </div>
       <div>
@@ -48,10 +51,12 @@ export default function LCommunity(){
         </div>
         <div className='content-container'>
           <p className="content3">2023.12.28</p>
-          <h2>
-            <span onClick={handleLikeClick}>❤️</span>
+          <p className='like-num'>
+            <span onClick={handleLikeClick}>
+              <img src='./src/assets/icon/red-like.png'/>
+            </span>
             {like}
-          </h2>
+          </p>
         </div>
         
         <hr className="line"/>
