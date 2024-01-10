@@ -7,6 +7,7 @@ import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { Avatar } from "antd";
 import { useState } from "react";
 import MatchingComment from "../../components/MatchingDetail/MatchingComment";
+import MatchingMap from "../../components/MatchingDetail/MatchingMap";
 
 const MatchingDetailPage = () => {
   const [like, setLike] = useState(false);
@@ -43,7 +44,7 @@ const MatchingDetailPage = () => {
             <AddressIcon src={addressIcon} alt="주소" />
             <Text>서울시 00구 00아파트</Text>
           </AddressBox>
-          <div>카카오맵 넣기</div>
+          <MatchingMap />
           <ExplainBox>
             <Text>2023.12.28</Text>
             <LikeButton>
