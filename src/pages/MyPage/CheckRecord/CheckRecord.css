@@ -1,8 +1,7 @@
-.check-body{
-  background-color: #49BEB7;
-}
-#container2{
+
+.container2{
   width: 360px;
+  background-color:#49BEB7;
 }
 .box2{
   box-sizing: border-box;

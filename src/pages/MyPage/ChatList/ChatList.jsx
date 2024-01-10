@@ -4,9 +4,9 @@ import "./ChatList.css"
 export default function CheckList(){
   return(
     <>
-    <h3 className="title-chat">참여중인 채팅방</h3>
+    
     <div id="container1">
-     
+      <h3 className="title-chat">참여중인 채팅방</h3>
 
       <div className='box1'>
         <div className='text-container'>

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+
 import "./CheckRecord.css"
 import SearchBar from './SearchBar';
 
 export default function CheckRecord(){
   return(
-    
-    <div id='container2'>
+    <div className='container2'>
       <SearchBar id="search"/>
 
       <div className='box2'>
