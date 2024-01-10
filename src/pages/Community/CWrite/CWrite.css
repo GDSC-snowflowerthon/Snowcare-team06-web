@@ -1,6 +1,6 @@
 .li-style2 input[type="text"],
-input[type="datetime-local"],
-input[type="file"] {
+.li-style2 input[type="datetime-local"],
+.li-style2 input[type="file"] {
   width: 350px; 
   height: 45px;
   padding: 12px 16px ;
@@ -31,7 +31,7 @@ input[type="file"] {
   color: black;
   margin-bottom: 20px;
 }
-ul{
+.li-style2 ul{
   position: relative;
 }
 .write-finish input[type="submit"]{
