@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import exampleImg from "../../assets/images/example-img.svg";
 import heartIcon from "../../assets/icon/heart-icon.svg";
-import arrowIcon from "../../assets/icon/arrow-right.svg";
 
 let dummyData = [0, 1, 2];
-const PreviewItem = () => {
+const MatchingItem = () => {
   // 최대 3개까지만 보여주기!
   return (
     <Container>
@@ -30,10 +29,6 @@ const PreviewItem = () => {
           </MatchingInfoBox>
         </MatchingBox>
       ))}
-      <MoreButtonBox>
-        <MoreButtonText>더 보러가기</MoreButtonText>
-        <MoreButtonImg src={arrowIcon} alt="화살표" />
-      </MoreButtonBox>
     </Container>
   );
 };
@@ -52,7 +47,7 @@ const MatchingBox = styled.div`
   padding: 10px 13px;
   width: 100%;
   border-radius: 10px;
-  background-color: #e2f4f3;
+  background-color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 `;
 
@@ -116,21 +111,4 @@ const LikeText = styled.div`
   color: #fe0135;
 `;
 
-const MoreButtonBox = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 10px;
-  width: 100%;
-`;
-
-const MoreButtonText = styled.div`
-  color: #404144;
-  font-size: 0.9rem;
-`;
-
-const MoreButtonImg = styled.img`
-  width: 20px;
-`;
-
-export default PreviewItem;
+export default MatchingItem;
