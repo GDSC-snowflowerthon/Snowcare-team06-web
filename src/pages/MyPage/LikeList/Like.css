@@ -1,19 +1,22 @@
 body{
-  background-color: #49BEB7;
+  background: #49BEB7;
 }
-h3{
+.like-title{
   color: #ffffff;
   font-size: 26.245px;
   font-weight: 800;
   margin: 40px 0 40px 10px;
 }
 
-p{
+.box4 p{
   color: #15A196;
   font-size: 12px;
   font-weight: 600;
   line-height: 22px;
   letter-spacing: -0.408px;
+  font-size: 16px;
+  margin-bottom: 5px;
+  padding: 10px;
 }
 .normal{
   color: #000000;
@@ -22,7 +25,7 @@ p{
   line-height: 22px;
   letter-spacing: -0.408px;
 }
-.box1{
+.box4{
   box-sizing: border-box;
   width: 330px;
   height: 130px;
@@ -36,11 +39,7 @@ p{
   position: relative;
   align-items: center;
 }
-.box p{
-  font-size: 16px;
-  margin-bottom: 5px;
-  padding: 10px
-}
+
 
 .img{
   position: absolute;

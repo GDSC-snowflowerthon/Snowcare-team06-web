@@ -3,7 +3,7 @@ import React from 'react';
 
 const Post = ({ title, content, imageSrc, like, onLikeClick }) => {
   return (
-    <div className='box1'>
+    <div className='box4'>
       <p>
         <span className='normal'>{title}</span>
         <br />
@@ -19,3 +19,6 @@ const Post = ({ title, content, imageSrc, like, onLikeClick }) => {
 };
 
 export default Post;
+
+
+

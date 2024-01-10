@@ -12,7 +12,7 @@ const Like = () => {
 
   return (
     <>
-      <h3>좋아요한 매칭글</h3>
+      <h3 className='like-title'>좋아요한 매칭글</h3>
 
       <Post
         title="게시글 제목"
