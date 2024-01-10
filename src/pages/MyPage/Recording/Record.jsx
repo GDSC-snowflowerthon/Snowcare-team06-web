@@ -8,8 +8,9 @@ export default function Record() {
   return (
     <>
       <div>
-        <h3>봉사 기록하기</h3>
+        <h3 className="record-title">봉사 기록하기</h3>
       </div>
+      <div>
       <ul className="li-style">
         <li>
           <label htmlFor="title">제목*</label>
@@ -35,12 +36,10 @@ export default function Record() {
           
         </li>
       </ul>
-     
-      <div>
+  
         <input
           type="submit"
           value="완성하기"
-         
         ></input>
       </div>
     </>
