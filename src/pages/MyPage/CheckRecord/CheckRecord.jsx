@@ -4,7 +4,7 @@ import SearchBar from './SearchBar';
 
 export default function CheckRecord(){
   return(
-    <body className='check-body'>
+    
     <div id='container2'>
       <SearchBar id="search"/>
 
@@ -54,6 +54,6 @@ export default function CheckRecord(){
       </div>
       
     </div>
-    </body>
+   
   );
 }
