@@ -1,0 +1,33 @@
+body{
+  background-color: #fff;
+}
+
+#container6{
+  width: 360px;
+
+}
+h3{
+  color:black;
+  margin: 30px 0;
+  font-size: 20px;
+}
+.box6{
+  position: relative;
+  width: 380px;
+  height: 60px;
+  margin: 30px 0 50px 0;
+ 
+ 
+}
+.box6 p{
+  font-size: 17px;
+  margin-bottom: 0;
+}
+.flex{
+  display: flex;
+}
+.right-button{
+  margin-left: auto;
+  margin-top: 15px;
+}
+/*여기부터*/
