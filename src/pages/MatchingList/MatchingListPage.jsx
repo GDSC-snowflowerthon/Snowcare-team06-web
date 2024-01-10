@@ -53,19 +53,19 @@ const SearchContainer = styled.div`
 `;
 
 const SearchInput = styled.input`
-  padding: 20px 30px;
+  padding: 15px 20px;
   width: 100%;
   border: none;
   border-radius: 30px;
   background-color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  font-size: 1rem;
+  font-size: 0.9rem;
 `;
 
 const SearchIcon = styled.img`
   position: absolute;
-  top: 40px;
-  right: 55px;
+  top: 35px;
+  right: 40px;
   cursor: pointer;
 `;
 

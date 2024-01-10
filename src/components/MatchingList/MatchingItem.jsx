@@ -16,7 +16,9 @@ const MatchingItem = () => {
                 [지금 용인은] 우리동네 눈 치우기 자원봉사활동
               </ContentText>
             </div>
-            <Image src={exampleImg} alt="사진" />
+            <ImageBox>
+              <Image src={exampleImg} alt="사진" />
+            </ImageBox>
           </MatchingContentBox>
           <MatchingInfoBox>
             <DateText>23.01.03</DateText>
@@ -66,6 +68,10 @@ const ContentText = styled.div`
   font-size: 0.7rem;
   font-weight: 600;
   color: #085f63;
+`;
+
+const ImageBox = styled.div`
+  height: 70px;
 `;
 
 const Image = styled.img`
