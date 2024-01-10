@@ -10,6 +10,7 @@ import Detail from "./pages/MyPage/RecordDetail/Detail";
 import Record from "./pages/MyPage/Recording/Record";
 import CheckRecord from "./pages/MyPage/CheckRecord/CheckRecord";
 import LCommunity from "./pages/MyPage/LikeCommunity/LCommunity";
+import Community from "./pages/Community/Community";
 
 const Router = () => {
   return (
@@ -19,6 +20,7 @@ const Router = () => {
         <Route path="/" element={<StartPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/main" element={<MainPage />} />
+
         <Route path="/chatlist" element={<ChatList />} />
         <Route path="/checkrecord" element={<CheckRecord/>} />
         <Route path="/lcommunity" element={<LCommunity/>} />
@@ -27,6 +29,9 @@ const Router = () => {
         <Route path="/notify" element={<Notify/>} />
         <Route path="/detail" element={<Detail/>} />
         <Route path="/record" element={<Record/>} />
+
+        <Route path="/community" element={<Community/>} />
+        
         
       </Routes>
     </BrowserRouter>
