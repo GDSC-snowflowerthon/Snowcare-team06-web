@@ -1,14 +1,14 @@
-.body{
+body{
   background: #ffffff;
 }
-#container{
+#container3{
   width: 360px;
 }
 .user{
   display: flex;
   align-items: center;
 }
-p{
+.user p{
   color: #000;
   text-align: left;
   margin-top: 0;
@@ -27,14 +27,14 @@ p{
   width: 360px;
   height: 280px;
 }
-.title{
+.title3{
   color: #000;
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 }
-.content{
+.content3{
   color: #6C757D;
   font-size: 16px;
   font-style: normal;
@@ -43,10 +43,10 @@ p{
   letter-spacing: 0.16px;
   margin: 20px 0;
 }
-.title {
+.title3 {
   padding: 10px 10px;
 }
-.content{
+.content3{
   padding: 10px 10px;
 }
 .line{
