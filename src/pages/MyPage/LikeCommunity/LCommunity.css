@@ -1,0 +1,72 @@
+
+#container3{
+  width: 434px;
+}
+.user{
+  display: flex;
+  align-items: center;
+}
+.user p{
+  color: #000;
+  text-align: left;
+  
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.261px; 
+  letter-spacing: 0.16px;
+}
+#img{
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin: 20px 10px;
+}
+#simg{
+  width: 434px;
+  height: 330px;
+}
+
+.title3{
+  color: #000;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 12px 0px 12px 19px;
+  padding: 0;
+}
+
+.content3{
+  color: #6C757D;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 25px;
+  letter-spacing: 0.16px;
+  margin: 0 0 0 19px;
+}
+
+.line{
+  background: #d9d9d9;
+  height: 3px;
+  border: none;
+  width: 434px;
+  display: flex;
+}
+
+.content-container{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 27px;
+}
+.content-container p{
+  margin: 0 0 19px 19px;
+  
+}
+.like-num{
+  color: #FE0135;
+}
+.like-button{
+  width: 26px;
+  height: 26px;
+}
