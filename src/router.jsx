@@ -10,7 +10,8 @@ import Detail from "./pages/MyPage/RecordDetail/Detail";
 import Record from "./pages/MyPage/Recording/Record";
 import CheckRecord from "./pages/MyPage/CheckRecord/CheckRecord";
 import LCommunity from "./pages/MyPage/LikeCommunity/LCommunity";
-import Community from "./pages/Community/Community";
+import Community from "./pages/Community2/mainCommunity/Community";
+import CDetail from "./pages/Community2/CDetail/CDetail";
 
 const Router = () => {
   return (
@@ -31,6 +32,8 @@ const Router = () => {
         <Route path="/record" element={<Record/>} />
 
         <Route path="/community" element={<Community/>} />
+        <Route path="/cdetail" element={<CDetail/>} />
+
         
         
       </Routes>
