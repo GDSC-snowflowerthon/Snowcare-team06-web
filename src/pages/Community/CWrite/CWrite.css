@@ -1,6 +1,6 @@
-.li-style input[type="text"],
-.li-style input[type="datetime-local"],
-.li-style input[type="file"] {
+.li-style2 input[type="text"],
+.li-style2 input[type="datetime-local"],
+.li-style2 input[type="file"] {
   width: 350px; 
   height: 45px;
   padding: 12px 16px ;
@@ -13,7 +13,7 @@
 }
 
 
-.li-style textarea {
+.li-style2 textarea {
   width: 350px;
   padding: 12px 16px ; 
   background: rgba(73, 190, 183, 0.16);
@@ -23,21 +23,21 @@
   margin-bottom: 10px;
   font-size: 15px;
 }
-.li-style{
+.li-style2{
   list-style-type: none;
 }
-.record-title{
+.record-title2{
   font-size: 26px;
   color: black;
   margin-bottom: 20px;
 }
-.li-style ul{
+.li-style2 ul{
   position: relative;
 }
-.write-finish1 input[type="submit"]{
+.write-finish input[type="submit"]{
   position: absolute;
-  margin-top: 150px;
-  
+  margin-top: 200px;
+  margin-left: 15px;
   display: flex;
   width: 353.654px;
   height: 60px;
@@ -47,20 +47,19 @@
   border-radius: 9px;
   background: #49BEB7;
   border: none;
-  margin-left: 15px;
   font-size: 19px;
   
 }
-.li-style li{
+.li-style2 li{
   display: flex;
   flex-direction: column;
   margin-bottom: 10px; 
   
 }
-ul.li-style {
+ul.li-style2 {
   margin: 0; /* 외부 마진 제거 */
   padding: 15px; /* 외부 패딩 제거 */
 }
-.li-style label {
+.li-style2 label {
   margin-bottom: 5px; /* Adjust the spacing between the label and the input/textarea */
 }

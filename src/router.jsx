@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StartPage from "./pages/Start/StartPage";
 import MainPage from "./pages/Main/MainPage";
 import SignupPage from "./pages/Signup/SignupPage";
+
 import ChatList from "./pages/MyPage/ChatList/ChatList"
 import Like from "./pages/MyPage/LikeList/Like";
 import MyPage from "./pages/MyPage/MyPage/MyPage";
@@ -14,6 +15,11 @@ import LCommunity from "./pages/MyPage/LikeCommunity/LCommunity";
 import MatchingListPage from "./pages/MatchingList/MatchingListPage";
 import MatchingDetailPage from "./pages/MatchingDetail/MatchingDetailPage";
 import MatchingWritePage from "./pages/MatchingWrite/MatchingWritePage";
+
+import CDtail from "./pages/Community/CDetail/CDetail";
+import Community from "./pages/Community/Community/Community";
+import CWrite from "./pages/Community/CWrite/CWrite";
+
 
 const Router = () => {
   return (
@@ -36,8 +42,9 @@ const Router = () => {
         <Route path="/detail" element={<Detail/>} />
         <Route path="/record" element={<Record/>} />
 
-
-        
+        <Route path="/cdetail" element={<CDtail/>} />
+        <Route path="/community" element={<Community/>} />
+        <Route path="/cwrite" element={<CWrite/>} />
         
       </Routes>
     </BrowserRouter>
