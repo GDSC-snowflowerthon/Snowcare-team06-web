@@ -1,15 +1,13 @@
 import styled from "styled-components";
-import DetailHeader from "../../components/Common/DetailHeader";
-import exampleImg from "../../assets/images/example-img.svg";
-import userIcon from "../../assets/icon/user-icon.svg";
-import addressIcon from "../../assets/images/address-flag.svg";
+import DetailHeader from "../../../components/Common/DetailHeader";
+import exampleImg from "../../../assets/images/example-img.svg";
+import userIcon from "../../../assets/icon/user-icon.svg";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { Avatar } from "antd";
 import { useState } from "react";
-import MatchingComment from "../../components/MatchingDetail/MatchingComment";
-import MatchingMap from "../../components/MatchingDetail/MatchingMap";
+import MatchingComment from "../../../components/MatchingDetail/MatchingComment";
 
-const MatchingDetailPage = () => {
+const CommunityDetailPage = () => {
   const [like, setLike] = useState(false);
 
   return (
@@ -31,7 +29,6 @@ const MatchingDetailPage = () => {
             </Avatar>
             <div>닉네임</div>
           </ProfileBox>
-          <ChatButton>채팅하기</ChatButton>
         </ProfileContainer>
         <Divider></Divider>
         <PostImg src={exampleImg} alt="게시 사진" />
@@ -40,11 +37,6 @@ const MatchingDetailPage = () => {
           <Text>
             12/30에 폭설이 내린대요~ 다같이 눈 치워봐요! 같이 해용~~!!
           </Text>
-          <AddressBox>
-            <AddressIcon src={addressIcon} alt="주소" />
-            <Text>서울시 00구 00아파트</Text>
-          </AddressBox>
-          <MatchingMap />
           <ExplainBox>
             <Text>2023.12.28</Text>
             <LikeButton>
@@ -87,7 +79,7 @@ const InnerContainer = styled.div`
 
 const ProfileContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  //justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   width: 100%;
@@ -111,15 +103,6 @@ const ProfileImg = styled.img`
   color: white;
 `;
 
-const ChatButton = styled.button`
-  padding: 7px 10px;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  background-color: #49beb7;
-  cursor: pointer;
-`;
-
 const PostImg = styled.img`
   width: 100%;
 `;
@@ -139,16 +122,6 @@ const Text = styled.div`
   color: #1f2024;
   font-size: 0.7rem;
   line-height: 2;
-`;
-
-const AddressBox = styled.div`
-  display: flex;
-  padding-top: 20px;
-  padding-bottom: 10px;
-`;
-
-const AddressIcon = styled.img`
-  padding-right: 10px;
 `;
 
 const ExplainBox = styled.div`
@@ -171,4 +144,4 @@ const LikeButton = styled.button`
   cursor: pointer;
 `;
 
-export default MatchingDetailPage;
+export default CommunityDetailPage;
