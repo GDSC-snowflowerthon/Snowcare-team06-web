@@ -2,14 +2,19 @@ import styled from "styled-components";
 import DetailHeader from "../../../components/Common/DetailHeader";
 import { useState } from "react";
 import { MdCancel } from "react-icons/md";
+import { getCommunityWrite } from "../../../api/apiCommunity";
 
 const CommunityWritePage = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [image, setImage] = useState(null);
   const [imageData, setImageData] = useState("");
   const [imageSrc, setImageSrc] = useState(null);
 
   const onUpload = (e) => {
     setImageData(e.target.value);
     const file = e.target.files[0];
+    setImage(e.target.files[0]);
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
@@ -24,7 +29,37 @@ const CommunityWritePage = () => {
   const ImgDelete = () => {
     setImageData("");
     setImageSrc(null);
+    setImage(null);
   };
+
+  const onClickSubmit = () => {
+    if ((title === "") | (content === "") | !image) {
+      alert("필수 입력값을 모두 채워주세요!");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("userId", 1);
+    const data = {
+      userId: 1,
+      title: title,
+      content: content,
+      image: formData,
+    };
+    console.log(image);
+    console.log(data);
+    postCommunityApi(formData);
+  };
+
+  const postCommunityApi = async (postData) => {
+    let data = await getCommunityWrite(postData);
+    if (data) {
+      console.log(data);
+    }
+  };
+
   return (
     <Container>
       <DetailHeader />
@@ -34,13 +69,21 @@ const CommunityWritePage = () => {
           <InputTitle>
             제목<span style={{ color: "red" }}>*</span>
           </InputTitle>
-          <Input placeholder="제목을 입력해주세요" />
+          <Input
+            placeholder="제목을 입력해주세요"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </InputBox>
         <InputBox>
           <InputTitle>
             내용<span style={{ color: "red" }}>*</span>
           </InputTitle>
-          <InputTextarea placeholder="내용을 입력해주세요" />
+          <InputTextarea
+            placeholder="내용을 입력해주세요"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
         </InputBox>
         <InputBox>
           <InputTitle>사진</InputTitle>
@@ -58,7 +101,7 @@ const CommunityWritePage = () => {
             <ImgPreview src={imageSrc} alt="첨부사진" />
           </ImgPreviewBox>
         )}
-        <Button>완성하기</Button>
+        <Button onClick={onClickSubmit}>완성하기</Button>
       </InnerContainer>
     </Container>
   );

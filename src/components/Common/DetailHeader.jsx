@@ -4,8 +4,10 @@ import snowcareLogo from "../../assets/images/snowcare-logo.svg";
 import beforeButton from "../../assets/icon/before-button.svg";
 import { useState } from "react";
 import MenuDrawer from "./MenuDrawer";
+import { useNavigate } from "react-router-dom";
 
 const DetailHeader = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -20,10 +22,14 @@ const DetailHeader = () => {
     <>
       <Container>
         <InnerContainer>
-          <BackButton>
+          <BackButton onClick={() => navigate(-1)}>
             <BackImg src={beforeButton} alt="뒤로가기" />
           </BackButton>
-          <LogoImg src={snowcareLogo} alt="로고" />
+          <LogoImg
+            src={snowcareLogo}
+            alt="로고"
+            onClick={() => navigate("/main")}
+          />
           <MenuButton onClick={showDrawer}>
             <MenuImg src={menuButton} alt="메뉴" />
           </MenuButton>

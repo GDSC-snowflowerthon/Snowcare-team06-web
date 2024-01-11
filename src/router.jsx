@@ -29,7 +29,7 @@ const Router = () => {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="/matchings" element={<MatchingListPage />} />
-        <Route path="/matching" element={<MatchingDetailPage />} />
+        <Route path="/matching/:id" element={<MatchingDetailPage />} />
         <Route path="/matching-write" element={<MatchingWritePage />} />
 
         <Route path="/chatlist" element={<ChatList />} />
@@ -43,7 +43,7 @@ const Router = () => {
 
         <Route path="/cdetail" element={<CDtail />} />
         <Route path="/community" element={<Community />} />
-        <Route path="/community-detail" element={<CommunityDetailPage />} />
+        <Route path="/community-detail/:id" element={<CommunityDetailPage />} />
         <Route path="/community-write" element={<CommunityWritePage />} />
       </Routes>
     </BrowserRouter>

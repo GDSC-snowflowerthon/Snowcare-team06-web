@@ -3,8 +3,11 @@ import MainHeader from "../../components/Common/MainHeader";
 import searchIcon from "../../assets/icon/search-icon.svg";
 import writeIcon from "../../assets/icon/write-icon.svg";
 import MatchingItem from "../../components/MatchingList/MatchingItem";
+import { useNavigate } from "react-router-dom";
 
 const MatchingListPage = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <MainHeader />
@@ -17,7 +20,7 @@ const MatchingListPage = () => {
           <MatchingItem />
         </ContentContainer>
         <WriteButtonBox>
-          <WriteButton>
+          <WriteButton onClick={() => navigate(`/matching-write`)}>
             <div>글쓰기</div>
             <img src={writeIcon} alt="글쓰기" width={23} />
           </WriteButton>

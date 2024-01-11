@@ -4,10 +4,10 @@ import exampleImg from "../../assets/images/example-img.svg";
 import beforeImg from "../../assets/icon/before-button.svg";
 import nextImg from "../../assets/icon/next-button.svg";
 import { useRef } from "react";
+import volunteerData from "../../json/main-vol.json";
+import { Link } from "react-router-dom";
 
 const { Meta } = Card;
-
-const dummyData = [0, 1, 2, 3];
 
 const InfoSlide = () => {
   const sliderRef = useRef(null);
@@ -17,8 +17,8 @@ const InfoSlide = () => {
         <img src={beforeImg} alt="이전" width={30} />
       </BeforeButton>
       <Carousel autoplay ref={sliderRef}>
-        {dummyData.map((item) => (
-          <div key={item}>
+        {volunteerData.volunteerInfo.map((item, index) => (
+          <div key={index}>
             <InnterContainer>
               <ContentBox
                 hoverable
@@ -26,16 +26,18 @@ const InfoSlide = () => {
                 cover={<ProfileImg alt="example" src={exampleImg} />}
               >
                 <Meta
-                  title="제목 넣어!"
+                  title={item.title}
                   description={
                     <Explain>
-                      봉사 장소 : ~~~ <br />
-                      봉사 기간 : ~~~ <br />
-                      모집 기간 : ~~~ <br />
+                      봉사 장소 : {item.place} <br />
+                      봉사 기간 : {item.volunteerPeriod} <br />
+                      모집 기간 : {item.recruitPeriod} <br />
                     </Explain>
                   }
                 />
-                <LinkButton>자세히 알아보기</LinkButton>
+                <Link to={item.pageLink}>
+                  <LinkButton>자세히 알아보기</LinkButton>
+                </Link>
               </ContentBox>
             </InnterContainer>
           </div>

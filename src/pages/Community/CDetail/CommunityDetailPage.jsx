@@ -1,62 +1,110 @@
 import styled from "styled-components";
 import DetailHeader from "../../../components/Common/DetailHeader";
-import exampleImg from "../../../assets/images/example-img.svg";
 import userIcon from "../../../assets/icon/user-icon.svg";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { Avatar } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MatchingComment from "../../../components/MatchingDetail/MatchingComment";
+import { useParams } from "react-router-dom";
+import {
+  getCommunityDetail,
+  getCommunityLikes,
+  getCommunityUnlikes,
+} from "../../../api/apiCommunity";
 
 const CommunityDetailPage = () => {
+  const params = useParams();
   const [like, setLike] = useState(false);
+  const [likeNum, setLikeNum] = useState(0);
+  const [postItem, setPostItem] = useState(null);
+
+  useEffect(() => {
+    let userId = 1; // 나중에 recoil
+
+    getItemApi(params.id, userId);
+  }, [params.id]);
+
+  const getItemApi = async (postId, userId) => {
+    let data = await getCommunityDetail(postId, userId);
+    if (data) {
+      console.log(data);
+      setPostItem(data);
+      setLike(data.userLiked);
+      setLikeNum(data.likeCount);
+    }
+  };
+
+  const onClickLike = async () => {
+    let userId = 1;
+    if (like === true) {
+      let data = await getCommunityUnlikes(params.id, userId);
+      if (data) {
+        console.log(data);
+        setLike(false);
+        setLikeNum(likeNum - 1);
+      }
+    }
+  };
+
+  const onClickUnlike = async () => {
+    let userId = 1;
+    if (like === false) {
+      let data = await getCommunityLikes(params.id, userId);
+      if (data) {
+        console.log(data);
+        setLike(true);
+        setLikeNum(likeNum + 1);
+      }
+    }
+  };
 
   return (
     <Container>
       <DetailHeader />
-      <InnerContainer>
-        <ProfileContainer>
-          <ProfileBox>
-            <Avatar
-              style={{
-                backgroundColor: "#E2F4F3",
-              }}
-            >
-              <ProfileImg
-                src={userIcon}
-                alt="프로필"
-                style={{ color: "white" }}
-              />
-            </Avatar>
-            <div>닉네임</div>
-          </ProfileBox>
-        </ProfileContainer>
-        <Divider></Divider>
-        <PostImg src={exampleImg} alt="게시 사진" />
-        <ContentContainer>
-          <Title>함께 동네 눈 치워봐요~</Title>
-          <Text>
-            12/30에 폭설이 내린대요~ 다같이 눈 치워봐요! 같이 해용~~!!
-          </Text>
-          <ExplainBox>
-            <Text>2023.12.28</Text>
-            <LikeButton>
-              {like ? (
-                <IoHeartSharp
-                  style={{ color: "#FE0135", fontSize: "15px" }}
-                  onClick={() => setLike(false)}
+      {postItem && postItem !== undefined && postItem !== "" && (
+        <InnerContainer>
+          <ProfileContainer>
+            <ProfileBox>
+              <Avatar
+                style={{
+                  backgroundColor: "#E2F4F3",
+                }}
+              >
+                <ProfileImg
+                  src={userIcon}
+                  alt="프로필"
+                  style={{ color: "white" }}
                 />
-              ) : (
-                <IoHeartOutline
-                  style={{ color: "#FE0135", fontSize: "15px" }}
-                  onClick={() => setLike(true)}
-                />
-              )}
-              <div>15</div>
-            </LikeButton>
-          </ExplainBox>
-        </ContentContainer>
-        <MatchingComment />
-      </InnerContainer>
+              </Avatar>
+              <div>{postItem.userNickname}</div>
+            </ProfileBox>
+          </ProfileContainer>
+          <Divider></Divider>
+          {postItem.image && <PostImg src={postItem.image} alt="게시 사진" />}
+          <ContentContainer>
+            <Title>{postItem.title}</Title>
+            <Text>{postItem.content}</Text>
+            <ExplainBox>
+              <Text>{postItem.createdDate}</Text>
+              <LikeButton>
+                {like ? (
+                  <IoHeartSharp
+                    style={{ color: "#FE0135", fontSize: "15px" }}
+                    onClick={onClickLike}
+                  />
+                ) : (
+                  <IoHeartOutline
+                    style={{ color: "#FE0135", fontSize: "15px" }}
+                    onClick={onClickUnlike}
+                  />
+                )}
+                <div>{likeNum}</div>
+              </LikeButton>
+            </ExplainBox>
+          </ContentContainer>
+          <MatchingComment />
+        </InnerContainer>
+      )}
     </Container>
   );
 };

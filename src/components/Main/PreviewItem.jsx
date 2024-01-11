@@ -1,36 +1,56 @@
 import styled from "styled-components";
-import exampleImg from "../../assets/images/example-img.svg";
 import heartIcon from "../../assets/icon/heart-icon.svg";
 import arrowIcon from "../../assets/icon/arrow-right.svg";
+import { getVolunteersRecent } from "../../api/apiVolunteer";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-let dummyData = [0, 1, 2];
 const PreviewItem = () => {
+  const navigate = useNavigate();
+  const [postList, setPostList] = useState([]);
+
+  useEffect(() => {
+    let userId = 1; // 나중에 recoil
+
+    getItemApi(userId);
+  }, []);
+
+  const getItemApi = async (userId) => {
+    let data = await getVolunteersRecent(userId);
+    if (data) {
+      console.log(data);
+      setPostList(data);
+    }
+  };
   // 최대 3개까지만 보여주기!
   return (
     <Container>
-      {dummyData.map((item) => (
-        <MatchingBox key={item}>
-          <MatchingContentBox>
-            <div>
-              <Title>제목~~~~~</Title>
-              <ContentText>
-                [지금 용인은] 우리동네 눈 치우기 자원봉사활동
-              </ContentText>
-            </div>
-            <ImageBox>
-              <Image src={exampleImg} alt="사진" />
-            </ImageBox>
-          </MatchingContentBox>
-          <MatchingInfoBox>
-            <DateText>23.01.03</DateText>
-            <LikeBox>
-              <LikeImg src={heartIcon} alt="좋아요" />
-              <LikeText>6</LikeText>
-            </LikeBox>
-          </MatchingInfoBox>
-        </MatchingBox>
-      ))}
-      <MoreButtonBox>
+      {postList &&
+        postList.length > 0 &&
+        postList.map((item) => (
+          <MatchingBox
+            key={item.volunteerId}
+            onClick={() => navigate(`/matching/${item.volunteerId}`)}
+          >
+            <MatchingContentBox>
+              <div>
+                <Title>{item.title}</Title>
+                <ContentText>{item.content.substr(0, 10)}</ContentText>
+              </div>
+              <ImageBox>
+                {item.image && <Image src={item.image} alt="사진" />}
+              </ImageBox>
+            </MatchingContentBox>
+            <MatchingInfoBox>
+              <DateText>{item.createdDate}</DateText>
+              <LikeBox>
+                <LikeImg src={heartIcon} alt="좋아요" />
+                <LikeText>{item.likeCount}</LikeText>
+              </LikeBox>
+            </MatchingInfoBox>
+          </MatchingBox>
+        ))}
+      <MoreButtonBox onClick={() => navigate("/matchings")}>
         <MoreButtonText>더 보러가기</MoreButtonText>
         <MoreButtonImg src={arrowIcon} alt="화살표" />
       </MoreButtonBox>

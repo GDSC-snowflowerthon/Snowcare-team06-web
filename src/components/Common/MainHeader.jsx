@@ -3,8 +3,10 @@ import menuButton from "../../assets/icon/menu-button.svg";
 import snowcareLogo from "../../assets/images/snowcare-logo.svg";
 import { useState } from "react";
 import MenuDrawer from "./MenuDrawer";
+import { useNavigate } from "react-router-dom";
 
 const MainHeader = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -19,7 +21,11 @@ const MainHeader = () => {
     <>
       <Container>
         <InnerContainer>
-          <LogoImg src={snowcareLogo} alt="로고" />
+          <LogoImg
+            src={snowcareLogo}
+            alt="로고"
+            onClick={() => navigate("/main")}
+          />
           <MenuButton onClick={showDrawer}>
             <MenuImg src={menuButton} alt="메뉴" />
           </MenuButton>

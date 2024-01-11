@@ -1,24 +1,54 @@
 import styled from "styled-components";
 import uncheckIcon from "../../assets/icon/uncheck-circle.svg";
 import checkIcon from "../../assets/icon/check-circle.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
+import { getNicknameCheck } from "../../api/apiUser";
+import { Modal } from "antd";
 
 const SignupModal = () => {
   const [isChecked1, setIsChecked1] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
+  const [nickname, setNickname] = useState("");
   const [checkNickname, setCheckNickname] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [openPostcode, setOpenPostcode] = useState(false);
   const [address, setAddress] = useState("");
 
-  const onCheckNickname = () => {
+  useEffect(() => {
+    console.log(checkNickname);
+  }, [checkNickname]);
+
+  const onChangeNickname = (data) => {
+    setNickname(data);
+    setCheckNickname(false);
+  };
+
+  const onCheckNickname = async () => {
     // 닉네임 중복 확인 api 불러오기
-    setCheckNickname(true);
+    if (nickname === "" || nickname === undefined || !nickname) {
+      alert("닉네임을 올바르게 입력해주세요");
+      return;
+    }
+    let data = await getNicknameCheck(nickname);
+    if (data) {
+      setCheckNickname(true);
+    }
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    setOpenPostcode(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setOpenPostcode(false);
   };
 
   const handle = {
     // 버튼 클릭 이벤트
     clickButton: () => {
+      setIsModalOpen(true);
       setOpenPostcode((current) => !current);
     },
 
@@ -29,6 +59,7 @@ const SignupModal = () => {
             우편번호: ${data.zonecode}
         `);
       setAddress(data.address);
+      setIsModalOpen(false);
       setOpenPostcode(false);
     },
   };
@@ -44,8 +75,18 @@ const SignupModal = () => {
             <InputTitle>
               닉네임<span style={{ color: "red" }}>*</span>
             </InputTitle>
-            <Input placeholder="닉네임을 입력해주세요" />
-            <InputButton onClick={onCheckNickname}>중복 확인</InputButton>
+            <Input
+              placeholder="닉네임을 입력해주세요"
+              value={nickname}
+              onChange={(e) => onChangeNickname(e.target.value.trim())}
+            />
+            {checkNickname ? (
+              <InputButton style={{ backgroundColor: "#cf8443" }}>
+                사용 가능
+              </InputButton>
+            ) : (
+              <InputButton onClick={onCheckNickname}>중복 확인</InputButton>
+            )}
             <InputExplain>3~8자 이상으로 공백 없이 입력해주세요</InputExplain>
           </InputBox>
           <AgreeBox>
@@ -87,11 +128,18 @@ const SignupModal = () => {
                 </InputExplain>
               </InputBox>
               {openPostcode && (
-                <DaumPostcode
-                  onComplete={handle.selectAddress} // 값을 선택할 경우 실행되는 이벤트
-                  autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
-                  //defaultQuery='판교역로 235' // 팝업을 열때 기본적으로 입력되는 검색어
-                />
+                <AddressModal
+                  title="주소 검색창"
+                  open={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                >
+                  <AddressSearchBox
+                    onComplete={handle.selectAddress} // 값을 선택할 경우 실행되는 이벤트
+                    autoClose={false} // 값을 선택할 경우 사용되는 DOM을 제거하여 자동 닫힘 설정
+                    //defaultQuery='판교역로 235' // 팝업을 열때 기본적으로 입력되는 검색어
+                  />
+                </AddressModal>
               )}
             </>
           )}
@@ -195,6 +243,29 @@ const AgreeNotice = styled.div`
   color: #949494;
   font-size: 0.7rem;
   background-color: #e8e8e8;
+`;
+
+const AddressModal = styled(Modal)`
+  .ant-modal-header {
+    padding-top: 15px;
+    padding-left: 20px;
+  }
+
+  .ant-modal-footer {
+    padding-bottom: 15px;
+    padding-right: 20px;
+  }
+
+  .ant-modal-content {
+    padding: 0;
+  }
+`;
+
+const AddressSearchBox = styled(DaumPostcode)`
+  width: min-content;
+  .daum_popup {
+    width: 100px !important;
+  }
 `;
 
 const Button = styled.button`

@@ -1,53 +1,82 @@
 import styled from "styled-components";
-import exampleImg from "../../../assets/images/example-img.svg";
 import userIcon from "../../../assets/icon/user-icon.svg";
 import heartIcon from "../../../assets/icon/heart-icon.svg";
 import writeIcon from "../../../assets/icon/write-icon.svg";
 import { Avatar } from "antd";
 import MainHeader from "../../../components/Common/MainHeader";
+import { useEffect, useState } from "react";
+import { getCommunity } from "../../../api/apiCommunity";
+import { useNavigate } from "react-router-dom";
 
 const CommunityPage = () => {
-  let dummyData = [0, 1, 2];
+  const navigate = useNavigate();
+  const [postList, setPostList] = useState([]);
+
+  useEffect(() => {
+    let userId = 1; // 나중에 recoil
+
+    getItemApi(userId);
+  }, []);
+
+  const getItemApi = async (userId) => {
+    let data = await getCommunity(userId);
+    if (data) {
+      console.log(data);
+      setPostList(data);
+    }
+  };
+
+  const goDetailPage = (id) => {
+    navigate(`/community-detail/${id}`);
+  };
+
+  const goWritePage = () => {
+    navigate(`/community-write`);
+  };
+
   return (
     <Container>
       <MainHeader />
-      {dummyData.map((item) => (
-        <InnerContainer key={item}>
-          <ProfileContainer>
-            <ProfileBox>
-              <Avatar
-                style={{
-                  backgroundColor: "#E2F4F3",
-                }}
-              >
-                <ProfileImg
-                  src={userIcon}
-                  alt="프로필"
-                  style={{ color: "white" }}
-                />
-              </Avatar>
-              <div>닉네임</div>
-            </ProfileBox>
-          </ProfileContainer>
-          <Divider></Divider>
-          <PostImg src={exampleImg} alt="게시 사진" />
-          <ContentContainer>
-            <Title>함께 동네 눈 치워봐요~</Title>
-            <Text>
-              12/30에 폭설이 내린대요~ 다같이 눈 치워봐요! 같이 해용~~!!
-            </Text>
-            <ExplainBox>
-              <Text>2023.12.28</Text>
-              <LikeButton>
-                <LikeImg src={heartIcon} alt="좋아요" />
-                <LikeText>6</LikeText>
-              </LikeButton>
-            </ExplainBox>
-          </ContentContainer>
-        </InnerContainer>
-      ))}
+      {postList &&
+        postList.length > 0 &&
+        postList.map((item) => (
+          <InnerContainer
+            key={item.communityArticleId}
+            onClick={() => goDetailPage(item.communityArticleId)}
+          >
+            <ProfileContainer>
+              <ProfileBox>
+                <Avatar
+                  style={{
+                    backgroundColor: "#E2F4F3",
+                  }}
+                >
+                  <ProfileImg
+                    src={userIcon}
+                    alt="프로필"
+                    style={{ color: "white" }}
+                  />
+                </Avatar>
+                <div>{item.userNickname}</div>
+              </ProfileBox>
+            </ProfileContainer>
+            <Divider></Divider>
+            {item.image && <PostImg src={item.image} alt="게시 사진" />}
+            <ContentContainer>
+              <Title>{item.title}</Title>
+              <Text>{item.content}</Text>
+              <ExplainBox>
+                <Text>{item.createdDate}</Text>
+                <LikeButton>
+                  <LikeImg src={heartIcon} alt="좋아요" />
+                  <LikeText>{item.likeCount}</LikeText>
+                </LikeButton>
+              </ExplainBox>
+            </ContentContainer>
+          </InnerContainer>
+        ))}
       <WriteButtonBox>
-        <WriteButton>
+        <WriteButton onClick={goWritePage}>
           <div>글쓰기</div>
           <img src={writeIcon} alt="글쓰기" width={23} />
         </WriteButton>

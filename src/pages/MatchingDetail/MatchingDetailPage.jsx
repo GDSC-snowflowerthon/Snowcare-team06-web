@@ -1,70 +1,117 @@
 import styled from "styled-components";
 import DetailHeader from "../../components/Common/DetailHeader";
-import exampleImg from "../../assets/images/example-img.svg";
 import userIcon from "../../assets/icon/user-icon.svg";
 import addressIcon from "../../assets/images/address-flag.svg";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { Avatar } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MatchingComment from "../../components/MatchingDetail/MatchingComment";
 import MatchingMap from "../../components/MatchingDetail/MatchingMap";
+import { useParams } from "react-router-dom";
+import {
+  getVolunteerDetail,
+  getVolunteerLikes,
+  getVolunteerUnlikes,
+} from "../../api/apiVolunteer";
 
 const MatchingDetailPage = () => {
+  const params = useParams();
   const [like, setLike] = useState(false);
+  const [likeNum, setLikeNum] = useState(0);
+  const [postItem, setPostItem] = useState(null);
 
+  useEffect(() => {
+    let userId = 1; // 나중에 recoil
+
+    getItemApi(params.id, userId);
+  }, [params.id]);
+
+  const getItemApi = async (volunteerId, userId) => {
+    let data = await getVolunteerDetail(volunteerId, userId);
+    if (data) {
+      console.log(data);
+      setPostItem(data);
+      setLike(data.userLiked);
+      setLikeNum(data.likeCount);
+    }
+  };
+
+  const onClickLike = async () => {
+    let userId = 1;
+    if (like === true) {
+      let data = await getVolunteerUnlikes(params.id, userId);
+      if (data) {
+        console.log(data);
+        setLike(false);
+        setLikeNum(likeNum - 1);
+      }
+    }
+  };
+
+  const onClickUnlike = async () => {
+    let userId = 1;
+    if (like === false) {
+      let data = await getVolunteerLikes(params.id, userId);
+      if (data) {
+        console.log(data);
+        setLike(true);
+        setLikeNum(likeNum + 1);
+      }
+    }
+  };
   return (
     <Container>
       <DetailHeader />
-      <InnerContainer>
-        <ProfileContainer>
-          <ProfileBox>
-            <Avatar
-              style={{
-                backgroundColor: "#E2F4F3",
-              }}
-            >
-              <ProfileImg
-                src={userIcon}
-                alt="프로필"
-                style={{ color: "white" }}
-              />
-            </Avatar>
-            <div>닉네임</div>
-          </ProfileBox>
-          <ChatButton>채팅하기</ChatButton>
-        </ProfileContainer>
-        <Divider></Divider>
-        <PostImg src={exampleImg} alt="게시 사진" />
-        <ContentContainer>
-          <Title>함께 동네 눈 치워봐요~</Title>
-          <Text>
-            12/30에 폭설이 내린대요~ 다같이 눈 치워봐요! 같이 해용~~!!
-          </Text>
-          <AddressBox>
-            <AddressIcon src={addressIcon} alt="주소" />
-            <Text>서울시 00구 00아파트</Text>
-          </AddressBox>
-          <MatchingMap />
-          <ExplainBox>
-            <Text>2023.12.28</Text>
-            <LikeButton>
-              {like ? (
-                <IoHeartSharp
-                  style={{ color: "#FE0135", fontSize: "15px" }}
-                  onClick={() => setLike(false)}
+      {postItem && postItem !== undefined && postItem !== "" && (
+        <InnerContainer>
+          <ProfileContainer>
+            <ProfileBox>
+              <Avatar
+                style={{
+                  backgroundColor: "#E2F4F3",
+                }}
+              >
+                <ProfileImg
+                  src={userIcon}
+                  alt="프로필"
+                  style={{ color: "white" }}
                 />
-              ) : (
-                <IoHeartOutline
-                  style={{ color: "#FE0135", fontSize: "15px" }}
-                  onClick={() => setLike(true)}
-                />
-              )}
-              <div>15</div>
-            </LikeButton>
-          </ExplainBox>
-        </ContentContainer>
-        <MatchingComment />
-      </InnerContainer>
+              </Avatar>
+              <div>{postItem.userNickname}</div>
+            </ProfileBox>
+            <ChatButton>채팅하기</ChatButton>
+          </ProfileContainer>
+          <Divider></Divider>
+          {postItem.image && <PostImg src={postItem.image} alt="게시 사진" />}
+          <ContentContainer>
+            <Title>{postItem.title}</Title>
+            <Text>{postItem.content}</Text>
+            <AddressBox>
+              <AddressIcon src={addressIcon} alt="주소" />
+              <Text>{postItem.place}</Text>
+            </AddressBox>
+            <MatchingMap />
+            <ExplainBox>
+              <Text>{postItem.createdDate}</Text>
+              <LikeButton>
+                {like ? (
+                  <IoHeartSharp
+                    style={{ color: "#FE0135", fontSize: "15px" }}
+                    onClick={onClickLike}
+                  />
+                ) : (
+                  <IoHeartOutline
+                    style={{ color: "#FE0135", fontSize: "15px" }}
+                    onClick={onClickUnlike}
+                  />
+                )}
+                <div>{likeNum}</div>
+              </LikeButton>
+            </ExplainBox>
+          </ContentContainer>
+          <MatchingComment />
+        </InnerContainer>
+      )}
     </Container>
   );
 };
