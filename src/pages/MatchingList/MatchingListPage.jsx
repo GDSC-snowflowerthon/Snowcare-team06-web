@@ -4,20 +4,68 @@ import searchIcon from "../../assets/icon/search-icon.svg";
 import writeIcon from "../../assets/icon/write-icon.svg";
 import MatchingItem from "../../components/MatchingList/MatchingItem";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getVolunteers } from "../../api/apiVolunteer";
 
 const MatchingListPage = () => {
   const navigate = useNavigate();
+  const [postList, setPostList] = useState([]);
+  const [postSearchList, setPostSearchList] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const onChangeSearch = (e) => {
+    setSearch(e.target.value);
+
+    setPostSearchList(
+      postList.filter(
+        (item) =>
+          item.title.includes(e.target.value) ||
+          item.place.includes(e.target.value)
+      )
+    );
+  };
+
+  const onClickSearch = () => {
+    setPostSearchList(
+      postList.filter(
+        (item) => item.title.includes(search) || item.place.includes(search)
+      )
+    );
+  };
+
+  useEffect(() => {
+    let userId = 1; // 나중에 recoil
+
+    getItemApi(userId);
+  }, []);
+
+  const getItemApi = async (userId) => {
+    let data = await getVolunteers(userId);
+    if (data) {
+      console.log(data);
+      setPostList(data);
+      setPostSearchList(data);
+    }
+  };
 
   return (
     <Container>
       <MainHeader />
       <InnerContainer>
         <SearchContainer>
-          <SearchInput placeholder="제목 또는 지역명 입력" />
-          <SearchIcon src={searchIcon} alt="검색 버튼" />
+          <SearchInput
+            placeholder="제목 또는 지역명 입력"
+            value={search}
+            onChange={(e) => onChangeSearch(e)}
+          />
+          <SearchIcon
+            src={searchIcon}
+            alt="검색 버튼"
+            onClick={onClickSearch}
+          />
         </SearchContainer>
         <ContentContainer>
-          <MatchingItem />
+          <MatchingItem postList={postSearchList} />
         </ContentContainer>
         <WriteButtonBox>
           <WriteButton onClick={() => navigate(`/matching-write`)}>

@@ -4,20 +4,71 @@ import writeIcon from "../../../assets/icon/write-icon.svg";
 import { useNavigate } from "react-router-dom";
 import DetailHeader from "../../../components/Common/DetailHeader";
 import RecordingItem from "../../../components/CheckRecord/RecordingItem";
+import { useEffect, useState } from "react";
+import { getRecords } from "../../../api/apiRecord";
 
 const MatchingListPage = () => {
+  const dummyData = [
+    {
+      userVolunteerPostId: 1,
+      title: "aa",
+      content: "aaaa",
+      image: null,
+      userVolunteerData: "11-11-11",
+    },
+  ];
+
   const navigate = useNavigate();
+
+  const [search, setSearch] = useState("");
+  const [postList, setPostList] = useState(dummyData);
+  const [postSearchList, setPostSearchList] = useState([]);
+
+  const onChangeSearch = (e) => {
+    setSearch(e.target.value);
+
+    setPostSearchList(
+      postList.filter((item) => item.title.includes(e.target.value))
+    );
+  };
+
+  const onClickSearch = () => {
+    setPostSearchList(postList.filter((item) => item.title.includes(search)));
+  };
+
+  useEffect(() => {
+    let userId = 1; // 나중에 recoil
+
+    getItemApi(userId);
+  }, []);
+
+  const getItemApi = async (userId) => {
+    let data = await getRecords(userId);
+    if (data) {
+      console.log(data);
+      setPostList(data);
+      setPostSearchList(data);
+    }
+  };
 
   return (
     <Container>
       <DetailHeader />
       <InnerContainer>
         <SearchContainer>
-          <SearchInput placeholder="제목을 검색해주세요" />
-          <SearchIcon src={searchIcon} alt="검색 버튼" />
+          <SearchInput
+            placeholder="제목을 검색해주세요"
+            value={search}
+            onChange={(e) => onChangeSearch(e)}
+          />
+          <SearchIcon
+            src={searchIcon}
+            alt="검색 버튼"
+            onClick={onClickSearch}
+          />
         </SearchContainer>
         <ContentContainer>
-          <RecordingItem />
+          <RecordingItem postList={postSearchList} />
         </ContentContainer>
         <WriteButtonBox>
           <WriteButton onClick={() => navigate(`/record-write`)}>

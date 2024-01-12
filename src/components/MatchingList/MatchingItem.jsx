@@ -1,30 +1,13 @@
 import styled from "styled-components";
 import heartIcon from "../../assets/icon/heart-icon.svg";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getVolunteers } from "../../api/apiVolunteer";
 
-const MatchingItem = () => {
+const MatchingItem = (postList) => {
   const navigate = useNavigate();
-  const [postList, setPostList] = useState([]);
 
-  useEffect(() => {
-    let userId = 1; // 나중에 recoil
-
-    getItemApi(userId);
-  }, []);
-
-  const getItemApi = async (userId) => {
-    let data = await getVolunteers(userId);
-    if (data) {
-      console.log(data);
-      setPostList(data);
-    }
-  };
   return (
     <Container>
-      {postList &&
-        postList.length > 0 &&
+      {postList && postList.length > 0 ? (
         postList.map((item) => (
           <MatchingBox
             key={item.volunteerId}
@@ -47,7 +30,10 @@ const MatchingItem = () => {
               </LikeBox>
             </MatchingInfoBox>
           </MatchingBox>
-        ))}
+        ))
+      ) : (
+        <div>해당되는 데이터가 없습니다</div>
+      )}
     </Container>
   );
 };

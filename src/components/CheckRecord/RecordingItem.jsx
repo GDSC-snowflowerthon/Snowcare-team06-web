@@ -1,39 +1,12 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getRecords } from "../../api/apiRecord";
 
-const RecordingItem = () => {
-  const dummyData = [
-    {
-      userVolunteerPostId: 1,
-      title: "aa",
-      content: "aaaa",
-      image: null,
-      userVolunteerData: "11-11-11",
-    },
-  ];
+const RecordingItem = (postList) => {
   const navigate = useNavigate();
-  const [postList, setPostList] = useState(dummyData);
-
-  useEffect(() => {
-    let userId = 1; // 나중에 recoil
-
-    getItemApi(userId);
-  }, []);
-
-  const getItemApi = async (userId) => {
-    let data = await getRecords(userId);
-    if (data) {
-      console.log(data);
-      setPostList(data);
-    }
-  };
 
   return (
     <Container>
-      {postList &&
-        postList.length > 0 &&
+      {postList && postList.length > 0 ? (
         postList.map((item) => (
           <MatchingBox
             key={item.userVolunteerPostId}
@@ -52,7 +25,10 @@ const RecordingItem = () => {
               <DateText>{item.userVolunteerData}</DateText>
             </MatchingInfoBox>
           </MatchingBox>
-        ))}
+        ))
+      ) : (
+        <div>해당되는 데이터가 없습니다</div>
+      )}
     </Container>
   );
 };
