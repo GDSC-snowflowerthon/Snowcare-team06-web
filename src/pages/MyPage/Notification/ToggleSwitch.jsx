@@ -1,10 +1,7 @@
 // ToggleSwitch.jsx
-import React, { useState } from 'react';
-import './ToggleSwitch.css';
+import "./ToggleSwitch.css";
 
-const ToggleSwitch = () => {
-  const [isToggled, setToggled] = useState(false);
-
+const ToggleSwitch = ({ isToggled, setToggled }) => {
   const handleToggle = () => {
     setToggled(!isToggled);
     // Add your logic here based on the toggle state
