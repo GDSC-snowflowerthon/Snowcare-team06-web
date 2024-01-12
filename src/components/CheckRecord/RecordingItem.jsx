@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getVolunteers } from "../../api/apiVolunteer";
+import { getRecords } from "../../api/apiRecord";
 
 const RecordingItem = () => {
   const dummyData = [
     {
-      id: 1,
+      userVolunteerPostId: 1,
       title: "aa",
       content: "aaaa",
       image: null,
@@ -16,25 +16,29 @@ const RecordingItem = () => {
   const navigate = useNavigate();
   const [postList, setPostList] = useState(dummyData);
 
-  // useEffect(() => {
-  //   let userId = 1; // 나중에 recoil
+  useEffect(() => {
+    let userId = 1; // 나중에 recoil
 
-  //   getItemApi(userId);
-  // }, []);
+    getItemApi(userId);
+  }, []);
 
-  // const getItemApi = async (userId) => {
-  //   let data = await getVolunteers(userId);
-  //   if (data) {
-  //     console.log(data);
-  //     setPostList(data);
-  //   }
-  // };
+  const getItemApi = async (userId) => {
+    let data = await getRecords(userId);
+    if (data) {
+      console.log(data);
+      setPostList(data);
+    }
+  };
+
   return (
     <Container>
       {postList &&
         postList.length > 0 &&
         postList.map((item) => (
-          <MatchingBox key={item.id}>
+          <MatchingBox
+            key={item.userVolunteerPostId}
+            onClick={() => navigate(`/record/${item.userVolunteerPostId}`)}
+          >
             <MatchingContentBox>
               <div>
                 <Title>{item.title}</Title>

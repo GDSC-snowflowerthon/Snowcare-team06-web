@@ -4,28 +4,26 @@ import homeMenu from "../../assets/icon/home-menu.svg";
 import communityMenu from "../../assets/icon/community-menu.svg";
 import matchingMenu from "../../assets/icon/matching-menu.svg";
 import mypageMenu from "../../assets/icon/mypage-menu.svg";
+import { useNavigate } from "react-router-dom";
 
 const MenuDrawer = ({ onClose, open }) => {
+  const navigate = useNavigate();
+
   return (
-    <Container
-      // title="Basic Drawer"
-      placement="right"
-      onClose={onClose}
-      open={open}
-    >
-      <MenuBox>
+    <Container placement="right" onClose={onClose} open={open}>
+      <MenuBox onClick={() => navigate(`/main`)}>
         <MenuImage src={homeMenu} alt="홈" />
         <MenuText>메인 홈</MenuText>
       </MenuBox>
-      <MenuBox>
+      <MenuBox onClick={() => navigate(`/matchings`)}>
         <MenuImage src={matchingMenu} alt="매칭 페이지" />
         <MenuText>함께 봉사하기</MenuText>
       </MenuBox>
-      <MenuBox>
+      <MenuBox onClick={() => navigate(`/community`)}>
         <MenuImage src={communityMenu} alt="커뮤니티" />
         <MenuText>커뮤니티</MenuText>
       </MenuBox>
-      <MenuBox>
+      <MenuBox onClick={() => navigate(`/mypge`)}>
         <MenuImage src={mypageMenu} alt="마이 페이지" />
         <MenuText>마이 페이지</MenuText>
       </MenuBox>

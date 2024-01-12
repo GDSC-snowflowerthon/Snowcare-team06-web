@@ -4,10 +4,14 @@ import { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import { MdCancel } from "react-icons/md";
 import { Modal } from "antd";
+import { postVolunteerWrite } from "../../api/apiVolunteer";
 
 const MatchingWritePage = () => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [openPostcode, setOpenPostcode] = useState(false);
   const [address, setAddress] = useState("");
+  const [image, setImage] = useState(null);
   const [imageData, setImageData] = useState("");
   const [imageSrc, setImageSrc] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,6 +28,7 @@ const MatchingWritePage = () => {
   const onUpload = (e) => {
     setImageData(e.target.value);
     const file = e.target.files[0];
+    setImage(e.target.files[0]);
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
@@ -38,6 +43,7 @@ const MatchingWritePage = () => {
   const ImgDelete = () => {
     setImageData("");
     setImageSrc(null);
+    setImage(null);
   };
 
   const handle = {
@@ -59,6 +65,28 @@ const MatchingWritePage = () => {
     },
   };
 
+  const onClickSubmit = () => {
+    if ((title === "") | (content === "") | !image | (address === "")) {
+      alert("필수 입력값을 모두 채워주세요!");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("place", address);
+    formData.append("userId", 1);
+
+    postVolunteerApi(formData);
+  };
+
+  const postVolunteerApi = async (postData) => {
+    let data = await postVolunteerWrite(postData);
+    if (data) {
+      console.log(data);
+    }
+  };
+
   return (
     <Container>
       <DetailHeader />
@@ -68,13 +96,21 @@ const MatchingWritePage = () => {
           <InputTitle>
             제목<span style={{ color: "red" }}>*</span>
           </InputTitle>
-          <Input placeholder="제목을 입력해주세요" />
+          <Input
+            placeholder="제목을 입력해주세요"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
         </InputBox>
         <InputBox>
           <InputTitle>
             내용<span style={{ color: "red" }}>*</span>
           </InputTitle>
-          <InputTextarea placeholder="내용을 입력해주세요" />
+          <InputTextarea
+            placeholder="내용을 입력해주세요"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
         </InputBox>
         <InputBox>
           <InputTitle>봉사 장소</InputTitle>
@@ -117,7 +153,7 @@ const MatchingWritePage = () => {
             <ImgPreview src={imageSrc} alt="첨부사진" />
           </ImgPreviewBox>
         )}
-        <Button>완성하기</Button>
+        <Button onClick={onClickSubmit}>완성하기</Button>
       </InnerContainer>
     </Container>
   );

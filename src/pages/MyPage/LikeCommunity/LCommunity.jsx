@@ -6,6 +6,7 @@ import { Avatar } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DetailHeader from "../../../components/Common/DetailHeader";
+import { getCommunityUserLike } from "../../../api/apiCommunity";
 
 const CommunityPage = () => {
   let dummy = [
@@ -22,19 +23,17 @@ const CommunityPage = () => {
   const navigate = useNavigate();
   const [postList, setPostList] = useState(dummy);
 
-  // useEffect(() => {
-  //   let userId = 1; // 나중에 recoil
+  useEffect(() => {
+    getItemApi();
+  }, []);
 
-  //   getItemApi(userId);
-  // }, []);
-
-  // const getItemApi = async (userId) => {
-  //   let data = await getCommunity(userId);
-  //   if (data) {
-  //     console.log(data);
-  //     setPostList(data);
-  //   }
-  // };
+  const getItemApi = async () => {
+    let data = await getCommunityUserLike();
+    if (data) {
+      console.log(data);
+      setPostList(data);
+    }
+  };
 
   const goDetailPage = (id) => {
     navigate(`/community-detail/${id}`);

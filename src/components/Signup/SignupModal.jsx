@@ -1,12 +1,18 @@
 import styled from "styled-components";
 import uncheckIcon from "../../assets/icon/uncheck-circle.svg";
 import checkIcon from "../../assets/icon/check-circle.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
-import { getNicknameCheck } from "../../api/apiUser";
+import { getNicknameCheck, postKakaoLogin } from "../../api/apiUser";
 import { Modal } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const SignupModal = () => {
+  let params = new URL(document.URL).searchParams;
+  let authorizationCode = params.get("code");
+
+  const navigate = useNavigate();
+
   const [isChecked1, setIsChecked1] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
   const [nickname, setNickname] = useState("");
@@ -15,9 +21,41 @@ const SignupModal = () => {
   const [openPostcode, setOpenPostcode] = useState(false);
   const [address, setAddress] = useState("");
 
-  useEffect(() => {
-    console.log(checkNickname);
-  }, [checkNickname]);
+  const KakaoLoginApi = async () => {
+    if (!authorizationCode || nickname === "") {
+      alert("입력값을 모두 입력해주세요!");
+      return;
+    }
+
+    if (!checkNickname) {
+      alert("닉네임 중복 확인을 진행해주세요!");
+      return;
+    }
+
+    if (isChecked2 && (address === "" || !address || address === undefined)) {
+      alert("관심 장소를 등록해주세요!");
+      return;
+    }
+
+    let data = {
+      authorizationCode: authorizationCode,
+      nickname: nickname,
+      region: address,
+      newVolunteerAlarm: isChecked1,
+      weatherAlarm: isChecked2,
+    };
+
+    let res = await postKakaoLogin(data);
+
+    if (res) {
+      console.log(res);
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("refreshToken", res.refreshToken);
+      // 토큰 값 localstorage에다가 저장!
+      console.log("로그인에 성공했습니다!");
+      navigate("/main");
+    }
+  };
 
   const onChangeNickname = (data) => {
     setNickname(data);
@@ -143,7 +181,7 @@ const SignupModal = () => {
               )}
             </>
           )}
-          <Button>시작하기</Button>
+          <Button onClick={KakaoLoginApi}>시작하기</Button>
         </ModalContent>
       </ModalContainer>
     </>

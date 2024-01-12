@@ -2,6 +2,7 @@ import styled from "styled-components";
 import heartIcon from "../../assets/icon/heart-icon.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { getVolunteersUserLike } from "../../api/apiVolunteer";
 
 const LikeListItem = () => {
   const dummy = [
@@ -14,24 +15,24 @@ const LikeListItem = () => {
       image: null,
       place: "seoul",
       createdDate: "2024-01-01",
+      likeCount: 1,
     },
   ];
   const navigate = useNavigate();
   const [postList, setPostList] = useState(dummy);
 
-  // useEffect(() => {
-  //   let userId = 1; // 나중에 recoil
+  useEffect(() => {
+    getItemApi();
+  }, []);
 
-  //   getItemApi(userId);
-  // }, []);
+  const getItemApi = async () => {
+    let data = await getVolunteersUserLike();
+    if (data) {
+      console.log(data);
+      setPostList(data);
+    }
+  };
 
-  // const getItemApi = async (userId) => {
-  //   let data = await getVolunteers(userId);
-  //   if (data) {
-  //     console.log(data);
-  //     setPostList(data);
-  //   }
-  // };
   return (
     <Container>
       {postList &&

@@ -1,30 +1,47 @@
 import styled from "styled-components";
 import MainHeader from "../../../components/Common/MainHeader";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getUsers } from "../../../api/apiUser";
 
 const MyPage = () => {
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    getUserApi();
+  }, []);
+
+  const getUserApi = async () => {
+    let data = await getUsers();
+    if (data) {
+      console.log(data);
+      setUserData(data);
+    }
+  };
   return (
     <Container>
       <MainHeader />
       <InnerContainer>
         <Profile src="./src/assets/images/profile.png" alt="프로필" />
-        <ProfileName>사용자님</ProfileName>
-        <MenuBox>
+        {userData && <ProfileName>{userData.nickname}</ProfileName>}
+        <MenuBox onClick={() => navigate(`/notify`)}>
           <Text>알림 설정</Text>
           <Icon src="./src/assets/icon/화살표.svg" alt="버튼이미지" />
         </MenuBox>
-        <MenuBox>
+        <MenuBox onClick={() => navigate(`/records`)}>
           <Text>나의 봉사활동 기록</Text>
           <Icon src="./src/assets/icon/화살표.svg" alt="버튼이미지" />
         </MenuBox>
-        <MenuBox>
+        {/* <MenuBox>
           <Text>매칭 완료된 채팅방</Text>
           <Icon src="./src/assets/icon/화살표.svg" alt="버튼이미지" />
-        </MenuBox>
-        <MenuBox>
+        </MenuBox> */}
+        <MenuBox onClick={() => navigate(`/matching-like`)}>
           <Text>좋아요한 매칭글</Text>
           <Icon src="./src/assets/icon/화살표.svg" alt="버튼이미지" />
         </MenuBox>
-        <MenuBox>
+        <MenuBox onClick={() => navigate(`/community-like`)}>
           <Text>좋아요한 커뮤니티 게시글</Text>
           <Icon src="./src/assets/icon/화살표.svg" alt="버튼이미지" />
         </MenuBox>

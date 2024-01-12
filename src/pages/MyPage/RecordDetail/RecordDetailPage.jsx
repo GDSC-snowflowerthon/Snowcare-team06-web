@@ -1,22 +1,41 @@
 import styled from "styled-components";
 import DetailHeader from "../../../components/Common/DetailHeader";
-import ExampleImg from "../../../assets/images/example-img.svg";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getRecordDetail } from "../../../api/apiRecord";
 
 const RecordDetailPage = () => {
+  const params = useParams();
+
+  const [postItem, setPostItem] = useState(null);
+
+  useEffect(() => {
+    let userId = 1; // 나중에 recoil
+
+    getItemApi(params.id, userId);
+  }, [params.id]);
+
+  const getItemApi = async (userVolunteerPostId, userId) => {
+    let data = await getRecordDetail(userVolunteerPostId, userId);
+    if (data) {
+      console.log(data);
+      setPostItem(data);
+    }
+  };
+
   return (
     <Container>
       <DetailHeader />
-      <InnerContainer>
-        <ContentContainer>
-          <Title>글 제목~~~~</Title>
-          <Content>
-            어제부터 눈이 많이 내려서풍경은 좋았지만 걷다가 미끌어지면 안되니깐
-            청소하러 나갔다. 사진은 치우기 전의 사진.
-          </Content>
-          <Date>2023.12.28</Date>
-          <Image src={ExampleImg} alt="사진" />
-        </ContentContainer>
-      </InnerContainer>
+      {postItem && postItem !== undefined && postItem !== "" && (
+        <InnerContainer>
+          <ContentContainer>
+            <Title>{postItem.title}</Title>
+            <Content>{postItem.content}</Content>
+            <Date>{postItem.userVolunteerDate}</Date>
+            {postItem.image && <Image src={postItem.image} alt="사진" />}
+          </ContentContainer>
+        </InnerContainer>
+      )}
     </Container>
   );
 };

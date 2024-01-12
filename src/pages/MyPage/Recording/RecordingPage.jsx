@@ -2,7 +2,7 @@ import styled from "styled-components";
 import DetailHeader from "../../../components/Common/DetailHeader";
 import { useState } from "react";
 import { MdCancel } from "react-icons/md";
-import { getCommunityWrite } from "../../../api/apiCommunity";
+import { postRecordWrite } from "../../../api/apiRecord";
 
 const RecordWritePage = () => {
   const [title, setTitle] = useState("");
@@ -34,7 +34,12 @@ const RecordWritePage = () => {
   };
 
   const onClickSubmit = () => {
-    if ((title === "") | (content === "") | !image) {
+    if (
+      (title === "") |
+      (content === "") |
+      !image |
+      (userVolunteerDate === "")
+    ) {
       alert("필수 입력값을 모두 채워주세요!");
       return;
     }
@@ -42,20 +47,15 @@ const RecordWritePage = () => {
     formData.append("image", image);
     formData.append("title", title);
     formData.append("content", content);
+    formData.append("userVolunteerDate", userVolunteerDate);
     formData.append("userId", 1);
-    const data = {
-      userId: 1,
-      title: title,
-      content: content,
-      image: formData,
-    };
+
     console.log(image);
-    console.log(data);
-    postCommunityApi(formData);
+    postRecordApi(formData);
   };
 
-  const postCommunityApi = async (postData) => {
-    let data = await getCommunityWrite(postData);
+  const postRecordApi = async (postData) => {
+    let data = await postRecordWrite(postData);
     if (data) {
       console.log(data);
     }

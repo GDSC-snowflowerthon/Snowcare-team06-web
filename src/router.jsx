@@ -19,13 +19,17 @@ import LikeListPage from "./pages/MyPage/LikeList/LikeListPage";
 import RecordingPage from "./pages/MyPage/Recording/RecordingPage";
 import RecordDetailPage from "./pages/MyPage/RecordDetail/RecordDetailPage";
 import NotificationPage from "./pages/MyPage/Notification/NotificationPage";
+import LoginLoadingPage from "./pages/Start/LoginLoadingPage";
+import TokenRefresher from "./api/TokenRefresher";
 
 const Router = () => {
   return (
     <BrowserRouter>
+      <TokenRefresher />
       <Routes>
         <Route path="/" element={<StartPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/loading" element={<LoginLoadingPage />} />
+        <Route path="/oauth/callback/kakao" element={<SignupPage />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="/matchings" element={<MatchingListPage />} />
         <Route path="/matching/:id" element={<MatchingDetailPage />} />
@@ -37,7 +41,7 @@ const Router = () => {
         <Route path="/matching-like" element={<LikeListPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/notify" element={<NotificationPage />} />
-        <Route path="/record" element={<RecordDetailPage />} />
+        <Route path="/record/:id" element={<RecordDetailPage />} />
         <Route path="/record-write" element={<RecordingPage />} />
 
         <Route path="/community" element={<Community />} />

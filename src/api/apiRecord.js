@@ -1,40 +1,10 @@
 import { apiClient } from "./apiClient";
 
-// 카카오 로그인
-export const postKakaoLogin = async (data) => {
-  try {
-    const response = await apiClient.post(`/auth/kakao`, data);
-    console.log(response);
-    return response?.data;
-  } catch (err) {
-    console.log(err);
-    if (err?.response?.data?.detail) {
-      alert(err?.response?.data?.detail);
-    }
-    return false;
-  }
-};
-
-// 닉네임 중복 조회
-export const getNicknameCheck = async (nickname) => {
-  try {
-    const response = await apiClient.get(`/users/nickname/${nickname}`);
-    console.log(response);
-    return true;
-  } catch (err) {
-    console.log(err);
-    if (err?.response?.data?.detail) {
-      alert(err?.response?.data?.detail);
-    }
-    return false;
-  }
-};
-
-// 회원 정보 조회
-export const getUsers = async () => {
+// 봉사기록 글 목록 조회
+export const getRecords = async (userId) => {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await apiClient.get(`/users`, {
+    const response = await apiClient.get(`/users/record?userId=${userId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -50,12 +20,35 @@ export const getUsers = async () => {
   }
 };
 
-// 설정 수정
-export const patchSetting = async (data) => {
+// 커뮤니티 글 상세 조회
+export const getRecordDetail = async (userVolunteerPostId, userId) => {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await apiClient.patch(
-      `/users/setting`,
+    const response = await apiClient.get(
+      `/users/record/${userVolunteerPostId}?userId=${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    console.log(response);
+    return response?.data;
+  } catch (err) {
+    console.log(err);
+    if (err?.response?.data?.detail) {
+      alert(err?.response?.data?.detail);
+    }
+    return false;
+  }
+};
+
+// 봉사기록 글 작성하기
+export const postRecordWrite = async (data) => {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    const response = await apiClient.post(
+      `/users/record/new`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

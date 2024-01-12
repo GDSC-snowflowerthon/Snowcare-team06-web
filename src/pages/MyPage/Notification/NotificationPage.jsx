@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import DetailHeader from "../../../components/Common/DetailHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToggleSwitch from "./ToggleSwitch";
 import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
+import { getUsers, patchSetting } from "../../../api/apiUser";
+import { useNavigate } from "react-router-dom";
 
 const NotificationPage = () => {
+  const navigate = useNavigate();
+
   const [weatherAlarm, setWeatherAlarm] = useState(false);
   const [newVolunteerAlarm, setNewVolunteerAlarm] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -40,6 +44,42 @@ const NotificationPage = () => {
     },
   };
 
+  useEffect(() => {
+    getUserApi();
+  }, []);
+
+  const getUserApi = async () => {
+    let data = await getUsers();
+    if (data) {
+      console.log(data);
+      setAddress(data?.region);
+      setNewVolunteerAlarm(data.newVolunteerAlarm);
+      setWeatherAlarm(data.weatherAlarm);
+    }
+  };
+
+  const onClickSubmit = async () => {
+    if (
+      (newVolunteerAlarm && address === "") ||
+      !address ||
+      address === undefined
+    ) {
+      alert("관심 장소를 선택해주세요.");
+      return;
+    }
+    let data = {
+      userId: 1,
+      region: address,
+      newVolunteerAlarm: newVolunteerAlarm,
+      weatherAlarm: weatherAlarm,
+    };
+    let res = await patchSetting(data);
+    if (res) {
+      console.log(res);
+      alert("정보 변경이 완료되었습니다.");
+      navigate(`/mypage`);
+    }
+  };
   return (
     <Container>
       <DetailHeader />
@@ -91,7 +131,7 @@ const NotificationPage = () => {
             )}
           </>
         )}
-        <Button>저장하기</Button>
+        <Button onClick={onClickSubmit}>저장하기</Button>
       </InnerContainer>
     </Container>
   );
@@ -127,7 +167,7 @@ const CheckContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+  padding: 20px 0px;
   width: 100%;
 `;
 

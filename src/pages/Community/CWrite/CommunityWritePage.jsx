@@ -2,7 +2,7 @@ import styled from "styled-components";
 import DetailHeader from "../../../components/Common/DetailHeader";
 import { useState } from "react";
 import { MdCancel } from "react-icons/md";
-import { getCommunityWrite } from "../../../api/apiCommunity";
+import { postCommunityWrite } from "../../../api/apiCommunity";
 
 const CommunityWritePage = () => {
   const [title, setTitle] = useState("");
@@ -54,7 +54,7 @@ const CommunityWritePage = () => {
   };
 
   const postCommunityApi = async (postData) => {
-    let data = await getCommunityWrite(postData);
+    let data = await postCommunityWrite(postData);
     if (data) {
       console.log(data);
     }
