@@ -33,7 +33,7 @@ const NotificationPage = () => {
     },
 
     // 주소 선택 이벤트
-    selectAddress: (data) => {
+    selectAddress: async (data) => {
       console.log(`
             주소: ${data.address},
             우편번호: ${data.zonecode}
@@ -41,7 +41,26 @@ const NotificationPage = () => {
       setAddress(data.address);
       setIsModalOpen(false);
       setOpenPostcode(false);
+      let coords = await getAddressCoords(data.address);
+      let x = coords.getLng();
+      let y = coords.getLat();
+      console.log(x, y);
     },
+  };
+
+  const geoCoder = new window.kakao.maps.services.Geocoder();
+
+  const getAddressCoords = (address) => {
+    return new Promise((resolve, reject) => {
+      geoCoder.addressSearch(address, (result, status) => {
+        if (status === window.kakao.maps.services.Status.OK) {
+          const coords = new window.kakao.maps.LatLng(result[0].x, result[0].y);
+          resolve(coords);
+        } else {
+          reject(status);
+        }
+      });
+    });
   };
 
   useEffect(() => {

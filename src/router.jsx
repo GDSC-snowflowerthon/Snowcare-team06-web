@@ -28,8 +28,8 @@ const Router = () => {
       <TokenRefresher />
       <Routes>
         <Route path="/" element={<StartPage />} />
-        <Route path="/loading" element={<LoginLoadingPage />} />
-        <Route path="/oauth/callback/kakao" element={<SignupPage />} />
+        <Route path="/oauth/callback/kakao" element={<LoginLoadingPage />} />
+        <Route path="/signup" element={<SignupPage />} />
         <Route path="/main" element={<MainPage />} />
         <Route path="/matchings" element={<MatchingListPage />} />
         <Route path="/matching/:id" element={<MatchingDetailPage />} />

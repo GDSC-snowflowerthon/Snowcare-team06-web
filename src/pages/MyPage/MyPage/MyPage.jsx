@@ -8,6 +8,15 @@ const MyPage = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
+  const onClickLogout = () => {
+    let result = confirm("정말로 로그아웃 하시겠습니까?");
+    if (result) {
+      localStorage.clear();
+      navigate("/");
+      alert("정상적으로 로그아웃 되었습니다.");
+    }
+  };
+
   useEffect(() => {
     getUserApi();
   }, []);
@@ -45,7 +54,7 @@ const MyPage = () => {
           <Text>좋아요한 커뮤니티 게시글</Text>
           <Icon src="./src/assets/icon/화살표.svg" alt="버튼이미지" />
         </MenuBox>
-        <LogoutButton>로그아웃</LogoutButton>
+        <LogoutButton onClick={onClickLogout}>로그아웃</LogoutButton>
       </InnerContainer>
     </Container>
   );

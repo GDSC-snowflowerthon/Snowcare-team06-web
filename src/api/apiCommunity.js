@@ -132,3 +132,27 @@ export const getCommunityUserLike = async () => {
     return false;
   }
 };
+
+// 커뮤니티 댓글 추가
+export const postCommunityComment = async (data) => {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    const response = await apiClient.post(
+      `comments/community`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+      data
+    );
+    console.log(response);
+    return response?.data;
+  } catch (err) {
+    console.log(err);
+    if (err?.response?.data?.detail) {
+      alert(err?.response?.data?.detail);
+    }
+    return false;
+  }
+};

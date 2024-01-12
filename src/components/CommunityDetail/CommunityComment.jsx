@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { FaPlus } from "react-icons/fa6";
 import { useState } from "react";
-import { postVolunteerComment } from "../../api/apiVolunteer";
+import { postCommunityComment } from "../../api/apiCommunity";
 
-const MatchingComment = ({ postId, commentData }) => {
+const CommunityComment = ({ postId, commentData }) => {
   const [comment, setComment] = useState("");
 
   const onSubmitComment = () => {
@@ -20,7 +20,7 @@ const MatchingComment = ({ postId, commentData }) => {
       postId: postId,
       content: comment,
     };
-    let res = await postVolunteerComment(data);
+    let res = await postCommunityComment(data);
     if (res) {
       console.log("댓글 반영 완료!");
       window.location.reload();
@@ -139,4 +139,4 @@ const InputButton = styled.button`
   cursor: pointer;
 `;
 
-export default MatchingComment;
+export default CommunityComment;

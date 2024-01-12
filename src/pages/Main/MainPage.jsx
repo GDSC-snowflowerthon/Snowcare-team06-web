@@ -3,8 +3,16 @@ import MainHeader from "../../components/Common/MainHeader";
 import WeatherInfo from "../../components/Main/WeatherInfo";
 import PreviewItem from "../../components/Main/PreviewItem";
 import InfoSlide from "../../components/Main/InfoSlide";
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const MainPage = () => {
+  const user = useRecoilValue(userState);
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
   return (
     <Container>
       <MainHeader />

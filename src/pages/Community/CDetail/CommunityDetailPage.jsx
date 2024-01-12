@@ -4,13 +4,13 @@ import userIcon from "../../../assets/icon/user-icon.svg";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { Avatar } from "antd";
 import { useEffect, useState } from "react";
-import MatchingComment from "../../../components/MatchingDetail/MatchingComment";
 import { useParams } from "react-router-dom";
 import {
   getCommunityDetail,
   getCommunityLikes,
   getCommunityUnlikes,
 } from "../../../api/apiCommunity";
+import CommunityComment from "../../../components/CommunityDetail/CommunityComment";
 
 const CommunityDetailPage = () => {
   const params = useParams();
@@ -102,7 +102,10 @@ const CommunityDetailPage = () => {
               </LikeButton>
             </ExplainBox>
           </ContentContainer>
-          <MatchingComment />
+          <CommunityComment
+            postId={params.id}
+            commentData={postItem.comments}
+          />
         </InnerContainer>
       )}
     </Container>

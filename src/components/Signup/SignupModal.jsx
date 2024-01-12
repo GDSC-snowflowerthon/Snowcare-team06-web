@@ -1,13 +1,22 @@
 import styled from "styled-components";
 import uncheckIcon from "../../assets/icon/uncheck-circle.svg";
 import checkIcon from "../../assets/icon/check-circle.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import { getNicknameCheck, postKakaoLogin } from "../../api/apiUser";
 import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const SignupModal = () => {
+  // 저장 테스트
+  const setUser = useSetRecoilState(userState);
+  useEffect(() => {
+    setUser({ userId: 3 });
+  }, []);
+
+  //
   let params = new URL(document.URL).searchParams;
   let authorizationCode = params.get("code");
 
@@ -91,7 +100,7 @@ const SignupModal = () => {
     },
 
     // 주소 선택 이벤트
-    selectAddress: (data) => {
+    selectAddress: async (data) => {
       console.log(`
             주소: ${data.address},
             우편번호: ${data.zonecode}
@@ -99,7 +108,26 @@ const SignupModal = () => {
       setAddress(data.address);
       setIsModalOpen(false);
       setOpenPostcode(false);
+      let coords = await getAddressCoords(data.address);
+      let x = coords.getLng();
+      let y = coords.getLat();
+      console.log(x, y);
     },
+  };
+
+  const geoCoder = new window.kakao.maps.services.Geocoder();
+
+  const getAddressCoords = (address) => {
+    return new Promise((resolve, reject) => {
+      geoCoder.addressSearch(address, (result, status) => {
+        if (status === window.kakao.maps.services.Status.OK) {
+          const coords = new window.kakao.maps.LatLng(result[0].x, result[0].y);
+          resolve(coords);
+        } else {
+          reject(status);
+        }
+      });
+    });
   };
 
   return (

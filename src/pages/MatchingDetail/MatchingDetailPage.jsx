@@ -109,7 +109,7 @@ const MatchingDetailPage = () => {
               </LikeButton>
             </ExplainBox>
           </ContentContainer>
-          <MatchingComment />
+          <MatchingComment postId={params.id} commentData={postItem.comments} />
         </InnerContainer>
       )}
     </Container>
