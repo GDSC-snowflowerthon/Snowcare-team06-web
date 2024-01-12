@@ -33,12 +33,7 @@ export const getNicknameCheck = async (nickname) => {
 // 회원 정보 조회
 export const getUsers = async (userId) => {
   try {
-    const accessToken = localStorage.getItem("accessToken");
-    const response = await apiClient.get(`/users/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await apiClient.get(`/users/${userId}`);
     console.log(response);
     return response?.data;
   } catch (err) {
@@ -53,16 +48,7 @@ export const getUsers = async (userId) => {
 // 설정 수정
 export const patchSetting = async (data) => {
   try {
-    const accessToken = localStorage.getItem("accessToken");
-    const response = await apiClient.patch(
-      `/users/setting`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-      data
-    );
+    const response = await apiClient.patch(`/users/setting`, data);
     console.log(response);
     return response?.data;
   } catch (err) {
@@ -77,14 +63,8 @@ export const patchSetting = async (data) => {
 // 닉네임 변경
 export const patchNickname = async (userId, nickname) => {
   try {
-    const accessToken = localStorage.getItem("accessToken");
     const response = await apiClient.patch(
-      `/users/nickname-edit?userId=${userId}&nickname=${nickname}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
+      `/users/nickname-edit?userId=${userId}&nickname=${nickname}`
     );
     console.log(response);
     return response?.data;
