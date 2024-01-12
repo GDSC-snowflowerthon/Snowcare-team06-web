@@ -6,9 +6,12 @@ import DaumPostcode from "react-daum-postcode";
 import { Modal } from "antd";
 import { getUsers, patchSetting } from "../../../api/apiUser";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const NotificationPage = () => {
   const navigate = useNavigate();
+  const user = useRecoilValue(userState);
 
   const [weatherAlarm, setWeatherAlarm] = useState(false);
   const [newVolunteerAlarm, setNewVolunteerAlarm] = useState(false);
@@ -78,16 +81,14 @@ const NotificationPage = () => {
   };
 
   const onClickSubmit = async () => {
-    if (
-      (newVolunteerAlarm && address === "") ||
-      !address ||
-      address === undefined
-    ) {
-      alert("관심 장소를 선택해주세요.");
-      return;
+    if (newVolunteerAlarm) {
+      if (address === "" || !address || address === undefined) {
+        alert("관심 장소를 선택해주세요.");
+        return;
+      }
     }
     let data = {
-      userId: 1,
+      userId: user.userId,
       region: address,
       newVolunteerAlarm: newVolunteerAlarm,
       weatherAlarm: weatherAlarm,

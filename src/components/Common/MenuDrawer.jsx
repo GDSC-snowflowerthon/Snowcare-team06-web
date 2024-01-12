@@ -23,7 +23,7 @@ const MenuDrawer = ({ onClose, open }) => {
         <MenuImage src={communityMenu} alt="커뮤니티" />
         <MenuText>커뮤니티</MenuText>
       </MenuBox>
-      <MenuBox onClick={() => navigate(`/mypge`)}>
+      <MenuBox onClick={() => navigate(`/mypage`)}>
         <MenuImage src={mypageMenu} alt="마이 페이지" />
         <MenuText>마이 페이지</MenuText>
       </MenuBox>

@@ -1,7 +1,44 @@
 import { Spin } from "antd";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { postKakaoLogin } from "../../api/apiUser";
+import { useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const LoginLoadingPage = () => {
+  let params = new URL(document.URL).searchParams;
+  let authorizationCode = params.get("code");
+
+  const setUser = useSetRecoilState(userState);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    KakaoLoginApi();
+  }, []);
+
+  const KakaoLoginApi = async () => {
+    let data = {
+      authorizationCode: authorizationCode,
+    };
+    let res = await postKakaoLogin(data);
+
+    if (res) {
+      console.log(res);
+      localStorage.setItem("accessToken", res.accessToken);
+      localStorage.setItem("refreshToken", res.refreshToken);
+      setUser({ userId: res.userId });
+      if (res.newUser) {
+        navigate(`/signup`);
+      } else {
+        // 토큰 값 localstorage에다가 저장!
+        console.log("로그인에 성공했습니다!");
+        navigate("/main");
+      }
+    }
+  };
+
   return (
     <Container>
       <Text>

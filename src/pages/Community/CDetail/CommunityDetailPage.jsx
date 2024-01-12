@@ -11,18 +11,21 @@ import {
   getCommunityUnlikes,
 } from "../../../api/apiCommunity";
 import CommunityComment from "../../../components/CommunityDetail/CommunityComment";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const CommunityDetailPage = () => {
   const params = useParams();
   const [like, setLike] = useState(false);
   const [likeNum, setLikeNum] = useState(0);
   const [postItem, setPostItem] = useState(null);
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
-    let userId = 1; // 나중에 recoil
+    //let userId = 1; // 나중에 recoil
 
-    getItemApi(params.id, userId);
-  }, [params.id]);
+    getItemApi(params.id, user.userId);
+  }, [params.id, user.userId]);
 
   const getItemApi = async (postId, userId) => {
     let data = await getCommunityDetail(postId, userId);
@@ -35,9 +38,8 @@ const CommunityDetailPage = () => {
   };
 
   const onClickLike = async () => {
-    let userId = 1;
     if (like === true) {
-      let data = await getCommunityUnlikes(params.id, userId);
+      let data = await getCommunityUnlikes(params.id, user.userId);
       if (data) {
         console.log(data);
         setLike(false);
@@ -47,9 +49,8 @@ const CommunityDetailPage = () => {
   };
 
   const onClickUnlike = async () => {
-    let userId = 1;
     if (like === false) {
-      let data = await getCommunityLikes(params.id, userId);
+      let data = await getCommunityLikes(params.id, user.userId);
       if (data) {
         console.log(data);
         setLike(true);

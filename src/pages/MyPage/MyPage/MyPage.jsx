@@ -3,10 +3,14 @@ import MainHeader from "../../../components/Common/MainHeader";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getUsers } from "../../../api/apiUser";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const MyPage = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
+
+  const user = useRecoilValue(userState);
 
   const onClickLogout = () => {
     let result = confirm("정말로 로그아웃 하시겠습니까?");
@@ -22,7 +26,7 @@ const MyPage = () => {
   }, []);
 
   const getUserApi = async () => {
-    let data = await getUsers();
+    let data = await getUsers(user.userId);
     if (data) {
       console.log(data);
       setUserData(data);

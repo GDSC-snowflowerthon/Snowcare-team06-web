@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const RecordingItem = (postList) => {
+const RecordingItem = ({ postList }) => {
   const navigate = useNavigate();
 
   return (

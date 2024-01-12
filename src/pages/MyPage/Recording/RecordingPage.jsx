@@ -3,8 +3,13 @@ import DetailHeader from "../../../components/Common/DetailHeader";
 import { useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { postRecordWrite } from "../../../api/apiRecord";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const RecordWritePage = () => {
+  const user = useRecoilValue(userState);
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [userVolunteerDate, setUserVolunteerDate] = useState("");
   const [content, setContent] = useState("");
@@ -48,7 +53,7 @@ const RecordWritePage = () => {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("userVolunteerDate", userVolunteerDate);
-    formData.append("userId", 1);
+    formData.append("userId", user.userId);
 
     console.log(image);
     postRecordApi(formData);
@@ -58,6 +63,7 @@ const RecordWritePage = () => {
     let data = await postRecordWrite(postData);
     if (data) {
       console.log(data);
+      navigate("/records");
     }
   };
 

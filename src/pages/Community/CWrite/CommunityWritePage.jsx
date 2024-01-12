@@ -3,8 +3,13 @@ import DetailHeader from "../../../components/Common/DetailHeader";
 import { useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { postCommunityWrite } from "../../../api/apiCommunity";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const CommunityWritePage = () => {
+  const user = useRecoilValue(userState);
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
@@ -41,15 +46,9 @@ const CommunityWritePage = () => {
     formData.append("image", image);
     formData.append("title", title);
     formData.append("content", content);
-    formData.append("userId", 1);
-    const data = {
-      userId: 1,
-      title: title,
-      content: content,
-      image: formData,
-    };
+    formData.append("userId", user.userId);
+
     console.log(image);
-    console.log(data);
     postCommunityApi(formData);
   };
 
@@ -57,6 +56,7 @@ const CommunityWritePage = () => {
     let data = await postCommunityWrite(postData);
     if (data) {
       console.log(data);
+      navigate(`/community`);
     }
   };
 

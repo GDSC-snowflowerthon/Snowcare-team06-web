@@ -5,8 +5,13 @@ import DaumPostcode from "react-daum-postcode";
 import { MdCancel } from "react-icons/md";
 import { Modal } from "antd";
 import { postVolunteerWrite } from "../../api/apiVolunteer";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const MatchingWritePage = () => {
+  const user = useRecoilValue(userState);
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [openPostcode, setOpenPostcode] = useState(false);
@@ -75,8 +80,8 @@ const MatchingWritePage = () => {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("place", address);
-    formData.append("userId", 1);
-
+    formData.append("userId", user.userId);
+    console.log(formData);
     postVolunteerApi(formData);
   };
 
@@ -84,6 +89,7 @@ const MatchingWritePage = () => {
     let data = await postVolunteerWrite(postData);
     if (data) {
       console.log(data);
+      navigate(`/matchings`);
     }
   };
 

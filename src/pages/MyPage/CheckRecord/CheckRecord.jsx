@@ -6,6 +6,8 @@ import DetailHeader from "../../../components/Common/DetailHeader";
 import RecordingItem from "../../../components/CheckRecord/RecordingItem";
 import { useEffect, useState } from "react";
 import { getRecords } from "../../../api/apiRecord";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const MatchingListPage = () => {
   const dummyData = [
@@ -19,6 +21,7 @@ const MatchingListPage = () => {
   ];
 
   const navigate = useNavigate();
+  const user = useRecoilValue(userState);
 
   const [search, setSearch] = useState("");
   const [postList, setPostList] = useState(dummyData);
@@ -37,10 +40,8 @@ const MatchingListPage = () => {
   };
 
   useEffect(() => {
-    let userId = 1; // 나중에 recoil
-
-    getItemApi(userId);
-  }, []);
+    getItemApi(user.userId);
+  }, [user.userId]);
 
   const getItemApi = async (userId) => {
     let data = await getRecords(userId);

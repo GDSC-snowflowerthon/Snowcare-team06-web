@@ -6,8 +6,11 @@ import MatchingItem from "../../components/MatchingList/MatchingItem";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVolunteers } from "../../api/apiVolunteer";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const MatchingListPage = () => {
+  const user = useRecoilValue(userState);
   const navigate = useNavigate();
   const [postList, setPostList] = useState([]);
   const [postSearchList, setPostSearchList] = useState([]);
@@ -34,9 +37,7 @@ const MatchingListPage = () => {
   };
 
   useEffect(() => {
-    let userId = 1; // 나중에 recoil
-
-    getItemApi(userId);
+    getItemApi(user.userId);
   }, []);
 
   const getItemApi = async (userId) => {
@@ -54,7 +55,7 @@ const MatchingListPage = () => {
       <InnerContainer>
         <SearchContainer>
           <SearchInput
-            placeholder="제목 또는 지역명 입력"
+            placeholder="제목 또는 지역명 검색"
             value={search}
             onChange={(e) => onChangeSearch(e)}
           />

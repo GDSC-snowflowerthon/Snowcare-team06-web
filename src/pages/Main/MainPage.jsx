@@ -3,15 +3,21 @@ import MainHeader from "../../components/Common/MainHeader";
 import WeatherInfo from "../../components/Main/WeatherInfo";
 import PreviewItem from "../../components/Main/PreviewItem";
 import InfoSlide from "../../components/Main/InfoSlide";
-import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { userState } from "../../recoil/user/atom";
+import { useEffect } from "react";
 
 const MainPage = () => {
-  const user = useRecoilValue(userState);
+  //저장 테스트
+  const setUser = useSetRecoilState(userState);
   useEffect(() => {
-    console.log(user);
+    setUser({ userId: 3 });
   }, []);
+
+  // const user = useRecoilValue(userState);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, []);
 
   return (
     <Container>

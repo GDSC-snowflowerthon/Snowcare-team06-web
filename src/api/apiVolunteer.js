@@ -137,10 +137,10 @@ export const getVolunteerUnlikes = async (volunteerId, userId) => {
 };
 
 // 좋아요한 봉사활동 구인글 목록
-export const getVolunteersUserLike = async () => {
+export const getVolunteersUserLike = async (userId) => {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await apiClient.get(`/likes/volunteer/user`, {
+    const response = await apiClient.get(`/likes/volunteer/${userId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -170,7 +170,7 @@ export const postVolunteerComment = async (data) => {
       data
     );
     console.log(response);
-    return response?.data;
+    return true;
   } catch (err) {
     console.log(err);
     if (err?.response?.data?.detail) {

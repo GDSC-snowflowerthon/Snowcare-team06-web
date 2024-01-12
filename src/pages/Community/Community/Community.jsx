@@ -7,15 +7,18 @@ import MainHeader from "../../../components/Common/MainHeader";
 import { useEffect, useState } from "react";
 import { getCommunity } from "../../../api/apiCommunity";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const CommunityPage = () => {
   const navigate = useNavigate();
   const [postList, setPostList] = useState([]);
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
-    let userId = 1; // 나중에 recoil
+    //let userId = 1; // 나중에 recoil
 
-    getItemApi(userId);
+    getItemApi(user.userId);
   }, []);
 
   const getItemApi = async (userId) => {

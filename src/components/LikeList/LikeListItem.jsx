@@ -3,30 +3,33 @@ import heartIcon from "../../assets/icon/heart-icon.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getVolunteersUserLike } from "../../api/apiVolunteer";
+import { userState } from "../../recoil/user/atom";
+import { useRecoilValue } from "recoil";
 
 const LikeListItem = () => {
-  const dummy = [
-    {
-      volunteerId: 1,
-      userNickname: "nick",
-      userImage: "pf",
-      title: "ti",
-      content: "c",
-      image: null,
-      place: "seoul",
-      createdDate: "2024-01-01",
-      likeCount: 1,
-    },
-  ];
+  // const dummy = [
+  //   {
+  //     volunteerId: 1,
+  //     userNickname: "nick",
+  //     userImage: "pf",
+  //     title: "ti",
+  //     content: "c",
+  //     image: null,
+  //     place: "seoul",
+  //     createdDate: "2024-01-01",
+  //     likeCount: 1,
+  //   },
+  // ];
+  const user = useRecoilValue(userState);
   const navigate = useNavigate();
-  const [postList, setPostList] = useState(dummy);
+  const [postList, setPostList] = useState([]);
 
   useEffect(() => {
     getItemApi();
   }, []);
 
   const getItemApi = async () => {
-    let data = await getVolunteersUserLike();
+    let data = await getVolunteersUserLike(user.userId);
     if (data) {
       console.log(data);
       setPostList(data);

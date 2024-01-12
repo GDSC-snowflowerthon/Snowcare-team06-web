@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DetailHeader from "../../../components/Common/DetailHeader";
 import { getCommunityUserLike } from "../../../api/apiCommunity";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const CommunityPage = () => {
   let dummy = [
@@ -22,13 +24,14 @@ const CommunityPage = () => {
   ];
   const navigate = useNavigate();
   const [postList, setPostList] = useState(dummy);
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
     getItemApi();
   }, []);
 
   const getItemApi = async () => {
-    let data = await getCommunityUserLike();
+    let data = await getCommunityUserLike(user.userId);
     if (data) {
       console.log(data);
       setPostList(data);

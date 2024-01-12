@@ -2,9 +2,12 @@ import styled from "styled-components";
 import { FaPlus } from "react-icons/fa6";
 import { useState } from "react";
 import { postVolunteerComment } from "../../api/apiVolunteer";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const MatchingComment = ({ postId, commentData }) => {
   const [comment, setComment] = useState("");
+  const user = useRecoilValue(userState);
 
   const onSubmitComment = () => {
     if (!comment || comment === "") {
@@ -15,12 +18,16 @@ const MatchingComment = ({ postId, commentData }) => {
   };
 
   const postCommentApi = async () => {
-    let data = {
-      userId: 1,
-      postId: postId,
-      content: comment,
-    };
-    let res = await postVolunteerComment(data);
+    const formData = new FormData();
+    formData.append("userId", user.userId);
+    formData.append("postId", postId);
+    formData.append("content", comment);
+    // let data = {
+    //   userId: 1,
+    //   postId: postId,
+    //   content: comment,
+    // };
+    let res = await postVolunteerComment(formData);
     if (res) {
       console.log("댓글 반영 완료!");
       window.location.reload();

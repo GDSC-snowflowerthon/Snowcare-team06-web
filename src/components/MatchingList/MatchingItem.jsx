@@ -2,7 +2,7 @@ import styled from "styled-components";
 import heartIcon from "../../assets/icon/heart-icon.svg";
 import { useNavigate } from "react-router-dom";
 
-const MatchingItem = (postList) => {
+const MatchingItem = ({ postList }) => {
   const navigate = useNavigate();
 
   return (

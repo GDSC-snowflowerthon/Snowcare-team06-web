@@ -31,10 +31,10 @@ export const getNicknameCheck = async (nickname) => {
 };
 
 // 회원 정보 조회
-export const getUsers = async () => {
+export const getUsers = async (userId) => {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await apiClient.get(`/users`, {
+    const response = await apiClient.get(`/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -62,6 +62,29 @@ export const patchSetting = async (data) => {
         },
       },
       data
+    );
+    console.log(response);
+    return response?.data;
+  } catch (err) {
+    console.log(err);
+    if (err?.response?.data?.detail) {
+      alert(err?.response?.data?.detail);
+    }
+    return false;
+  }
+};
+
+// 닉네임 변경
+export const patchNickname = async (userId, nickname) => {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    const response = await apiClient.patch(
+      `/users/nickname-edit?userId=${userId}&nickname=${nickname}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
     );
     console.log(response);
     return response?.data;

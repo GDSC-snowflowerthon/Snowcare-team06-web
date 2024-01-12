@@ -2,9 +2,12 @@ import styled from "styled-components";
 import { FaPlus } from "react-icons/fa6";
 import { useState } from "react";
 import { postCommunityComment } from "../../api/apiCommunity";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const CommunityComment = ({ postId, commentData }) => {
   const [comment, setComment] = useState("");
+  const user = useRecoilValue(userState);
 
   const onSubmitComment = () => {
     if (!comment || comment === "") {
@@ -15,12 +18,11 @@ const CommunityComment = ({ postId, commentData }) => {
   };
 
   const postCommentApi = async () => {
-    let data = {
-      userId: 1,
-      postId: postId,
-      content: comment,
-    };
-    let res = await postCommunityComment(data);
+    const formData = new FormData();
+    formData.append("userId", user.userId);
+    formData.append("postId", postId);
+    formData.append("content", comment);
+    let res = await postCommunityComment(formData);
     if (res) {
       console.log("댓글 반영 완료!");
       window.location.reload();
@@ -118,12 +120,14 @@ const InputInnerContainer = styled.div`
   gap: 10px;
 `;
 
-const Input = styled.input`
+const Input = styled.textarea`
   padding: 10px 15px;
   width: 100%;
+  height: 40px;
   border: 1px solid #49beb7;
   border-radius: 20px;
   background: rgba(73, 190, 183, 0.16);
+  resize: none;
 `;
 
 const InputButton = styled.button`

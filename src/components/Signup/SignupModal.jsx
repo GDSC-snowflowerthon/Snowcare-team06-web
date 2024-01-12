@@ -1,26 +1,21 @@
 import styled from "styled-components";
 import uncheckIcon from "../../assets/icon/uncheck-circle.svg";
 import checkIcon from "../../assets/icon/check-circle.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
-import { getNicknameCheck, postKakaoLogin } from "../../api/apiUser";
+import {
+  getNicknameCheck,
+  patchNickname,
+  patchSetting,
+} from "../../api/apiUser";
 import { Modal } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil/user/atom";
 
 const SignupModal = () => {
-  // 저장 테스트
-  const setUser = useSetRecoilState(userState);
-  useEffect(() => {
-    setUser({ userId: 3 });
-  }, []);
-
-  //
-  let params = new URL(document.URL).searchParams;
-  let authorizationCode = params.get("code");
-
   const navigate = useNavigate();
+  const user = useRecoilValue(userState);
 
   const [isChecked1, setIsChecked1] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
@@ -29,9 +24,11 @@ const SignupModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [openPostcode, setOpenPostcode] = useState(false);
   const [address, setAddress] = useState("");
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   const KakaoLoginApi = async () => {
-    if (!authorizationCode || nickname === "") {
+    if (nickname === "") {
       alert("입력값을 모두 입력해주세요!");
       return;
     }
@@ -41,25 +38,27 @@ const SignupModal = () => {
       return;
     }
 
-    if (isChecked2 && (address === "" || !address || address === undefined)) {
+    if (address === "" || !address || address === undefined) {
       alert("관심 장소를 등록해주세요!");
       return;
     }
 
     let data = {
-      authorizationCode: authorizationCode,
-      nickname: nickname,
+      //nickname: nickname,
+      userId: user.userId,
       region: address,
+      latitude: latitude,
+      longitude: longitude,
       newVolunteerAlarm: isChecked1,
       weatherAlarm: isChecked2,
     };
 
-    let res = await postKakaoLogin(data);
+    let res1 = await patchNickname(user.userId, nickname);
+    let res2 = await patchSetting(data);
 
-    if (res) {
-      console.log(res);
-      localStorage.setItem("accessToken", res.accessToken);
-      localStorage.setItem("refreshToken", res.refreshToken);
+    if (res1 && res2) {
+      console.log(res1);
+      console.log(res2);
       // 토큰 값 localstorage에다가 저장!
       console.log("로그인에 성공했습니다!");
       navigate("/main");
@@ -110,7 +109,9 @@ const SignupModal = () => {
       setOpenPostcode(false);
       let coords = await getAddressCoords(data.address);
       let x = coords.getLng();
+      setLatitude(x);
       let y = coords.getLat();
+      setLongitude(y);
       console.log(x, y);
     },
   };

@@ -13,18 +13,19 @@ import {
   getVolunteerLikes,
   getVolunteerUnlikes,
 } from "../../api/apiVolunteer";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const MatchingDetailPage = () => {
   const params = useParams();
   const [like, setLike] = useState(false);
   const [likeNum, setLikeNum] = useState(0);
   const [postItem, setPostItem] = useState(null);
+  const user = useRecoilValue(userState);
 
   useEffect(() => {
-    let userId = 1; // 나중에 recoil
-
-    getItemApi(params.id, userId);
-  }, [params.id]);
+    getItemApi(params.id, user.userId);
+  }, [params.id, user.userId]);
 
   const getItemApi = async (volunteerId, userId) => {
     let data = await getVolunteerDetail(volunteerId, userId);
@@ -37,9 +38,8 @@ const MatchingDetailPage = () => {
   };
 
   const onClickLike = async () => {
-    let userId = 1;
     if (like === true) {
-      let data = await getVolunteerUnlikes(params.id, userId);
+      let data = await getVolunteerUnlikes(params.id, user.userId);
       if (data) {
         console.log(data);
         setLike(false);
@@ -49,9 +49,8 @@ const MatchingDetailPage = () => {
   };
 
   const onClickUnlike = async () => {
-    let userId = 1;
     if (like === false) {
-      let data = await getVolunteerLikes(params.id, userId);
+      let data = await getVolunteerLikes(params.id, user.userId);
       if (data) {
         console.log(data);
         setLike(true);
@@ -79,7 +78,6 @@ const MatchingDetailPage = () => {
               </Avatar>
               <div>{postItem.userNickname}</div>
             </ProfileBox>
-            <ChatButton>채팅하기</ChatButton>
           </ProfileContainer>
           <Divider></Divider>
           {postItem.image && <PostImg src={postItem.image} alt="게시 사진" />}
@@ -90,7 +88,7 @@ const MatchingDetailPage = () => {
               <AddressIcon src={addressIcon} alt="주소" />
               <Text>{postItem.place}</Text>
             </AddressBox>
-            <MatchingMap />
+            <MatchingMap address={postItem.place} />
             <ExplainBox>
               <Text>{postItem.createdDate}</Text>
               <LikeButton>
@@ -134,7 +132,6 @@ const InnerContainer = styled.div`
 
 const ProfileContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   width: 100%;
@@ -156,15 +153,6 @@ const ProfileBox = styled.div`
 const ProfileImg = styled.img`
   width: 30px;
   color: white;
-`;
-
-const ChatButton = styled.button`
-  padding: 7px 10px;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  background-color: #49beb7;
-  cursor: pointer;
 `;
 
 const PostImg = styled.img`

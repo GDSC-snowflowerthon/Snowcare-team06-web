@@ -9,6 +9,7 @@ export const getCommunity = async (userId) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    // const response = await apiClient.get(`/community?userId=${userId}`);
     console.log(response);
     return response?.data;
   } catch (err) {
@@ -52,6 +53,7 @@ export const postCommunityWrite = async (data) => {
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          "Content-type": "multipart/form-data",
         },
       },
       data
@@ -114,10 +116,10 @@ export const getCommunityUnlikes = async (communityArticleId, userId) => {
 };
 
 // 좋아요한 커뮤니티 글 목록 조회
-export const getCommunityUserLike = async () => {
+export const getCommunityUserLike = async (userId) => {
   try {
     const accessToken = localStorage.getItem("accessToken");
-    const response = await apiClient.get(`/likes/community/user`, {
+    const response = await apiClient.get(`/likes/community/${userId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -147,7 +149,7 @@ export const postCommunityComment = async (data) => {
       data
     );
     console.log(response);
-    return response?.data;
+    return true;
   } catch (err) {
     console.log(err);
     if (err?.response?.data?.detail) {

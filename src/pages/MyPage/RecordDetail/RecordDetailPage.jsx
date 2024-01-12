@@ -3,17 +3,18 @@ import DetailHeader from "../../../components/Common/DetailHeader";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getRecordDetail } from "../../../api/apiRecord";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../../recoil/user/atom";
 
 const RecordDetailPage = () => {
   const params = useParams();
+  const user = useRecoilValue(userState);
 
   const [postItem, setPostItem] = useState(null);
 
   useEffect(() => {
-    let userId = 1; // 나중에 recoil
-
-    getItemApi(params.id, userId);
-  }, [params.id]);
+    getItemApi(params.id, user.userId);
+  }, [params.id, user.userId]);
 
   const getItemApi = async (userVolunteerPostId, userId) => {
     let data = await getRecordDetail(userVolunteerPostId, userId);

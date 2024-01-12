@@ -4,15 +4,16 @@ import arrowIcon from "../../assets/icon/arrow-right.svg";
 import { getVolunteersRecent } from "../../api/apiVolunteer";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil/user/atom";
 
 const PreviewItem = () => {
+  const user = useRecoilValue(userState);
   const navigate = useNavigate();
   const [postList, setPostList] = useState([]);
 
   useEffect(() => {
-    let userId = 1; // 나중에 recoil
-
-    getItemApi(userId);
+    getItemApi(user.userId);
   }, []);
 
   const getItemApi = async (userId) => {
